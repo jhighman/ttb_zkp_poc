@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trua: Zero-Knowledge Proofs Powering Privacy-First Digital Trust</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/snarkjs@latest/build/snarkjs.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'trua-blue': {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#0f172a'
+                        },
+                        'neon-blue': '#00d4ff',
+                        'neon-purple': '#8b5cf6',
+                        'dark-bg': '#0a0e27',
+                        'card-bg': 'rgba(15, 23, 42, 0.8)',
+                        'glass': 'rgba(255, 255, 255, 0.1)'
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(0, 212, 255, 0.5)' },
+                            '100%': { boxShadow: '0 0 30px rgba(0, 212, 255, 0.8)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    },
+                    backgroundImage: {
+                        'glass-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+                        'neon-gradient': 'linear-gradient(45deg, #00d4ff, #8b5cf6, #3b82f6)',
+                        'hero-gradient': 'linear-gradient(135deg, #0a0e27 0%, #1e3a8a 50%, #1d4ed8 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #0a0e27;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-border {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        .crypto-grid {
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .hero-gradient {
+            background: linear-gradient(90deg, #0a0e27, #1e3a8a, #1d4ed8, #2563eb, #1e3a8a, #0a0e27);
+            background-size: 300% 100%;
+            animation: slideGradient 12s ease-in-out infinite;
+        }
+        @keyframes slideGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .section-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .section-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans text-white crypto-grid">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card border-b border-white/10">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-neon-gradient rounded-xl flex items-center justify-center">
+                        <span class="text-dark-bg font-bold text-lg">T</span>
+                    </div>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-neon-blue to-white bg-clip-text text-transparent">Trua</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#vision" class="text-blue-200 hover:text-neon-blue transition-colors">Vision</a>
+                    <a href="#technology" class="text-blue-200 hover:text-neon-blue transition-colors">Technology</a>
+                    <a href="#demo" class="text-blue-200 hover:text-neon-blue transition-colors">Live Demo</a>
+                    <a href="#impact" class="text-blue-200 hover:text-neon-blue transition-colors">Impact</a>
+                    <button class="bg-neon-gradient text-dark-bg px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-transform">
+                        Contact Us
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="hero-gradient rounded-3xl p-12 text-center neon-border">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-neon-blue to-neon-purple bg-clip-text text-transparent">
+                    Zero-Knowledge Proofs
+                </h1>
+                <h2 class="text-3xl md:text-4xl font-semibold mb-8 text-blue-100">
+                    Powering Trua's Vision for a Privacy-First Digital World
+                </h2>
+                <p class="text-xl text-blue-200 mb-8 max-w-4xl mx-auto leading-relaxed">
+                    In today's hyperconnected digital landscape, trust has become both the most valuable and the most vulnerable asset. 
+                    At Trua, we've built our platform to answer one critical question: how do you know someone is who they claim to be—without risking their privacy?
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#demo" class="bg-neon-gradient text-dark-bg px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform">
+                        See Live Demo
+                    </a>
+                    <button class="border-2 border-neon-blue text-neon-blue px-8 py-4 rounded-xl font-bold text-lg hover:bg-neon-blue hover:text-dark-bg transition-all">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision" class="py-16 px-6 section-fade">
+        <div class="container mx-auto max-w-6xl">
+            <div class="glass-card rounded-2xl p-8 neon-border">
+                <h2 class="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                    What Are Zero-Knowledge Proofs—and Why Do They Matter?
+                </h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <p class="text-lg text-blue-200 leading-relaxed">
+                            Imagine being able to verify that someone is a licensed doctor, has a clean criminal record, or meets a company's hiring criteria—without ever seeing the underlying documents or personal identifiers. That's the power of zero-knowledge proofs.
+                        </p>
+                        <p class="text-lg text-blue-200 leading-relaxed">
+                            ZKPs let one party (the prover) convince another (the verifier) that a statement is true, without revealing why it's true. The cryptographic magic relies on three principles:
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-white font-bold text-sm">✓</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-green-400">Completeness</h4>
+                                    <p class="text-blue-200">If the statement is true, it can be proven.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-white font-bold text-sm">🛡️</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-blue-400">Soundness</h4>
+                                    <p class="text-blue-200">If it's false, it won't pass.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-white font-bold text-sm">🔒</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-purple-400">Zero-Knowledge</h4>
+                                    <p class="text-blue-200">The verifier learns nothing beyond the truth of the claim.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-glass rounded-xl p-6 border border-neon-blue/30">
+                        <h3 class="text-2xl font-bold mb-4 text-neon-blue">Traditional vs. ZKP Verification</h3>
+                        <div class="space-y-4">
+                            <div class="bg-red-500/20 rounded-lg p-4 border border-red-500/30">
+                                <h4 class="font-bold text-red-400 mb-2">❌ Traditional Method</h4>
+                                <p class="text-red-200 text-sm">Expose SSN, birthdate, full background reports</p>
+                            </div>
+                            <div class="bg-green-500/20 rounded-lg p-4 border border-green-500/30">
+                                <h4 class="font-bold text-green-400 mb-2">✅ ZKP Method</h4>
+                                <p class="text-green-200 text-sm">Verify without revealing - security AND privacy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-16 px-6 section-fade">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                Trua's ZKP-Powered Trust Infrastructure
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- TruaScore -->
+                <div class="glass-card rounded-2xl p-6 neon-border hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 bg-gradient-to-br from-neon-blue to-blue-600 rounded-2xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-neon-blue">TruaScore</h3>
+                    <p class="text-blue-200 mb-4">A Shareable Signal Without the Noise</p>
+                    <p class="text-sm text-blue-300 leading-relaxed">
+                        Think of TruaScore like a credit score for trust—except instead of revealing your financial history, 
+                        it reflects your integrity, professionalism, and background without disclosing personal details.
+                    </p>
+                    <div class="mt-4 bg-glass rounded p-3 border border-neon-blue/30">
+                        <p class="text-xs text-neon-blue font-mono">410M+ computations per score</p>
+                    </div>
+                </div>
+
+                <!-- TruaID -->
+                <div class="glass-card rounded-2xl p-6 neon-border hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 bg-gradient-to-br from-neon-purple to-purple-600 rounded-2xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">🆔</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-neon-purple">TruaID</h3>
+                    <p class="text-purple-200 mb-4">Verified Identity Across Channels</p>
+                    <p class="text-sm text-purple-300 leading-relaxed">
+                        Our next-generation identity credential allows users to authenticate across apps, services, 
+                        and industries using a privacy-preserving token—ideal for finance, healthcare, hiring, and social platforms.
+                    </p>
+                    <div class="mt-4 bg-glass rounded p-3 border border-neon-purple/30">
+                        <p class="text-xs text-neon-purple font-mono">Cross-platform compatibility</p>
+                    </div>
+                </div>
+
+                <!-- TruaBroker -->
+                <div class="glass-card rounded-2xl p-6 neon-border hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-2xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">⚖️</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-green-400">TruaBroker</h3>
+                    <p class="text-green-200 mb-4">Regulatory Compliance Without Overexposure</p>
+                    <p class="text-sm text-green-300 leading-relaxed">
+                        Firms can verify KYC, OFAC, and regulatory compliance—that an advisor is compliant, 
+                        CRD records are current, and there are no sanctions—without storing a single piece of PII.
+                    </p>
+                    <div class="mt-4 bg-glass rounded p-3 border border-green-400/30">
+                        <p class="text-xs text-green-400 font-mono">Zero PII storage</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section id="demo" class="py-16 px-6 section-fade">
+        <div class="container mx-auto max-w-6xl">
+            <div class="glass-card rounded-2xl p-8 neon-border">
+                <h2 class="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                    Live ZKP Demo: Job Eligibility Verification
+                </h2>
+                <p class="text-xl text-blue-200 text-center mb-8 max-w-4xl mx-auto">
+                    Experience zero-knowledge proofs in action. This interactive demo shows how applicants can prove they meet job requirements 
+                    without revealing their actual TruaScore or sensitive background details.
+                </p>
+                <div class="bg-glass rounded-xl p-6 border border-neon-blue/30 text-center">
+                    <div class="animate-pulse mb-4">
+                        <div class="w-16 h-16 bg-neon-gradient rounded-full mx-auto flex items-center justify-center">
+                            <span class="text-dark-bg text-2xl">🔐</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Interactive ZKP Demo</h3>
+                    <p class="text-blue-200 mb-6">
+                        See how employers can verify eligibility while applicant data remains completely private
+                    </p>
+                    <a href="index.html" class="inline-flex items-center space-x-2 bg-neon-gradient text-dark-bg px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform">
+                        <span>🚀</span>
+                        <span>Launch Demo</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Impact -->
+    <section id="impact" class="py-16 px-6 section-fade">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                Industry Impact: ZKPs as the Foundation of Scalable Digital Trust
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">🏥</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-blue-400">Healthcare</h3>
+                    <p class="text-sm text-blue-200">Validate clinician licenses and disciplinary history without exposing personal data</p>
+                </div>
+                <div class="glass-card rounded-xl p-6 border border-green-500/30 hover:border-green-400/50 transition-all">
+                    <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">🚗</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-green-400">Gig Economy</h3>
+                    <p class="text-sm text-green-200">Ensure rideshare drivers and freelancers have clean records without deep data dives</p>
+                </div>
+                <div class="glass-card rounded-xl p-6 border border-purple-500/30 hover:border-purple-400/50 transition-all">
+                    <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">💕</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-purple-400">Social Platforms</h3>
+                    <p class="text-sm text-purple-200">Verify identity and trustworthiness while respecting user anonymity</p>
+                </div>
+                <div class="glass-card rounded-xl p-6 border border-orange-500/30 hover:border-orange-400/50 transition-all">
+                    <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">👔</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-orange-400">HR & Workforce</h3>
+                    <p class="text-sm text-orange-200">Continuously monitor employee credentials without overstepping privacy boundaries</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Engine -->
+    <section class="py-16 px-6 section-fade">
+        <div class="container mx-auto max-w-6xl">
+            <div class="glass-card rounded-2xl p-8 neon-border">
+                <h2 class="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                    The Innovation Engine Behind Trua
+                </h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-neon-blue rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-dark-bg font-bold">⚡</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-neon-blue mb-2">410M+ Computations</h3>
+                                <p class="text-blue-200">Per TruaScore, optimized with proprietary algorithms for lightweight, fast proof generation</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-white font-bold">🔧</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-green-400 mb-2">Developer-Ready APIs</h3>
+                                <p class="text-green-200">SDKs making it easy to integrate trust signals into any platform</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-white font-bold">⚖️</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-purple-400 mb-2">Privacy Law Alignment</h3>
+                                <p class="text-purple-200">Designed to comply with GDPR, CCPA, and evolving digital trust regulations</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-white font-bold">🏆</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-orange-400 mb-2">Patented Architecture</h3>
+                                <p class="text-orange-200">Six issued patents backed by two decades of R&D in background screening</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 px-6">
+        <div class="container mx-auto max-w-4xl text-center">
+            <div class="hero-gradient rounded-3xl p-12 neon-border">
+                <h2 class="text-4xl font-bold mb-6 text-white">
+                    Join Us: Building the Trust Ecosystem of the Future
+                </h2>
+                <p class="text-xl text-blue-200 mb-8 leading-relaxed">
+                    The digital world is ready for a new trust model—one where individuals hold the keys to their identity, 
+                    and businesses verify what they need to, no more and no less.
+                </p>
+                <p class="text-lg text-blue-300 mb-8">
+                    Zero-knowledge proofs are the foundation of this future, and Trua is proud to lead the charge.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-neon-gradient text-dark-bg px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform">
+                        Schedule Demo
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-dark-bg transition-all">
+                        Download Whitepaper
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/10">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                    <div class="w-10 h-10 bg-neon-gradient rounded-xl flex items-center justify-center">
+                        <span class="text-dark-bg font-bold text-lg">T</span>
+                    </div>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-neon-blue to-white bg-clip-text text-transparent">Trua</span>
+                </div>
+                <div class="text-blue-300 text-center">
+                    <p>© 2025 Trua. Building the future of privacy-preserving trust.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections with fade animation
+        document.querySelectorAll('.section-fade').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

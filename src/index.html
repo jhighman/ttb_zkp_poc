@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZKP Job Eligibility Demo - Privacy-Preserving Hiring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/snarkjs@latest/build/snarkjs.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'crypto-blue': {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#0f172a'
+                        },
+                        'neon-blue': '#00d4ff',
+                        'neon-purple': '#8b5cf6',
+                        'dark-bg': '#0a0e27',
+                        'card-bg': 'rgba(15, 23, 42, 0.8)',
+                        'glass': 'rgba(255, 255, 255, 0.1)'
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+                        'crypto': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(0, 212, 255, 0.5)' },
+                            '100%': { boxShadow: '0 0 30px rgba(0, 212, 255, 0.8)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' }
+                        }
+                    },
+                    backgroundImage: {
+                        'crypto-gradient': 'linear-gradient(-45deg, #0a0e27, #1e3a8a, #1d4ed8, #2563eb)',
+                        'glass-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+                        'neon-gradient': 'linear-gradient(45deg, #00d4ff, #8b5cf6, #3b82f6)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #0a0e27;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-border {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        .crypto-grid {
+            background-image:
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #0a0e27 0%, #1e3a8a 50%, #1d4ed8 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen font-crypto text-white crypto-grid">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="glass-card rounded-3xl p-8 neon-border header-gradient">
+                <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-neon-blue via-neon-purple to-blue-400 bg-clip-text text-transparent">
+                    🔐 ZKP Job Eligibility
+                </h1>
+                <p class="text-xl text-blue-200 mb-6 font-mono">Privacy-Preserving Background Verification</p>
+                <div class="inline-flex items-center space-x-2 bg-glass rounded-full px-6 py-3 border border-neon-blue/30 cursor-pointer hover:bg-neon-blue/10 transition-all duration-300 tooltip-trigger" data-tooltip="zkp-intro">
+                    <span class="text-neon-blue">⚡</span>
+                    <span class="text-sm font-mono">Powered by Zero-Knowledge Proofs</span>
+                    <span class="text-neon-blue">⚡</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Demo Grid -->
+        <div class="grid lg:grid-cols-2 gap-8 mb-12">
+            <!-- Employer Section -->
+            <section class="glass-card rounded-2xl p-6 neon-border hover:shadow-2xl transition-all duration-500">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-neon-blue/30">
+                    <div class="w-12 h-12 bg-gradient-to-br from-neon-blue to-blue-600 rounded-xl flex items-center justify-center">
+                        <span class="text-2xl">👔</span>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Employer Portal</h2>
+                        <p class="text-blue-300 text-sm font-mono">Define job requirements</p>
+                    </div>
+                    <span class="tooltip-trigger text-neon-blue cursor-help ml-auto" data-tooltip="employer-role">❓</span>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-glass rounded-xl p-4 border border-white/10">
+                        <label class="block text-sm font-mono text-blue-200 mb-3">
+                            Minimum TruaScore (0-360):
+                            <span class="tooltip-trigger text-neon-blue cursor-help ml-1" data-tooltip="trua-score">❓</span>
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="range" id="requiredScore" min="0" max="360" value="270" 
+                                   class="flex-1 h-2 bg-crypto-blue-900 rounded-lg appearance-none cursor-pointer slider">
+                            <div class="bg-neon-gradient text-dark-bg px-4 py-2 rounded-lg font-mono font-bold min-w-[60px] text-center" id="scoreDisplay">270</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-glass rounded-xl p-4 border border-white/10">
+                        <label class="block text-sm font-mono text-blue-200 mb-4">
+                            Relevant Disqualifiers:
+                            <span class="tooltip-trigger text-neon-blue cursor-help ml-1" data-tooltip="disqualifiers">❓</span>
+                        </label>
+                        <div class="space-y-3">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer border border-transparent hover:border-neon-blue/30">
+                                <input type="checkbox" id="disq0" checked class="sr-only">
+                                <div class="checkbox-custom"></div>
+                                <span class="flex-1 text-sm">Has felony in last 5 years</span>
+                                <span class="tooltip-trigger text-neon-blue cursor-help" data-tooltip="felony">❓</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer border border-transparent hover:border-neon-blue/30">
+                                <input type="checkbox" id="disq1" class="sr-only">
+                                <div class="checkbox-custom"></div>
+                                <span class="flex-1 text-sm">Has DUI in last 3 years</span>
+                                <span class="tooltip-trigger text-neon-blue cursor-help" data-tooltip="dui">❓</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer border border-transparent hover:border-neon-blue/30">
+                                <input type="checkbox" id="disq2" class="sr-only">
+                                <div class="checkbox-custom"></div>
+                                <span class="flex-1 text-sm">Has suspended license</span>
+                                <span class="tooltip-trigger text-neon-blue cursor-help" data-tooltip="license">❓</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer border border-transparent hover:border-neon-blue/30">
+                                <input type="checkbox" id="disq3" class="sr-only">
+                                <div class="checkbox-custom"></div>
+                                <span class="flex-1 text-sm">Has misdemeanor in last 3 years</span>
+                                <span class="tooltip-trigger text-neon-blue cursor-help" data-tooltip="misdemeanor">❓</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer border border-transparent hover:border-neon-blue/30">
+                                <input type="checkbox" id="disq4" class="sr-only">
+                                <div class="checkbox-custom"></div>
+                                <span class="flex-1 text-sm">Has outstanding warrants</span>
+                                <span class="tooltip-trigger text-neon-blue cursor-help" data-tooltip="warrants">❓</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applicant Section -->
+            <section class="glass-card rounded-2xl p-6 neon-border hover:shadow-2xl transition-all duration-500">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-neon-purple/30">
+                    <div class="w-12 h-12 bg-gradient-to-br from-neon-purple to-purple-600 rounded-xl flex items-center justify-center">
+                        <span class="text-2xl">👤</span>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Applicant Portal</h2>
+                        <p class="text-purple-300 text-sm font-mono">Select your profile</p>
+                    </div>
+                    <span class="tooltip-trigger text-neon-purple cursor-help ml-auto" data-tooltip="applicant-role">❓</span>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-glass rounded-xl p-4 border border-white/10">
+                        <label class="block text-sm font-mono text-purple-200 mb-3">
+                            Choose Applicant Profile:
+                            <span class="tooltip-trigger text-neon-purple cursor-help ml-1" data-tooltip="profiles">❓</span>
+                        </label>
+                        <select id="applicant" class="w-full bg-crypto-blue-900 border border-white/20 rounded-lg px-4 py-3 text-white font-mono focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/50 transition-all">
+                            <option value="0">👍 Applicant A: Score=320, No disqualifiers</option>
+                            <option value="1">⚠️ Applicant B: Score=250, Has DUI</option>
+                            <option value="2">❌ Applicant C: Score=290, Has felony</option>
+                            <option value="3">✅ Applicant D: Score=340, Has old misdemeanor</option>
+                            <option value="4">🚫 Applicant E: Score=180, Multiple issues</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-glass rounded-xl p-4 border border-white/10" id="profileDetails">
+                        <h4 class="text-lg font-bold text-white mb-3 font-mono">Profile Details:</h4>
+                        <div class="bg-white/5 rounded-lg p-4 border-l-4 border-neon-purple" id="profileInfo">
+                            <!-- Profile information will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Action Section -->
+        <section class="glass-card rounded-2xl p-8 neon-border text-center mb-12">
+            <button id="checkEligibility" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-dark-bg bg-neon-gradient rounded-xl hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-neon-blue/50 font-mono">
+                <span class="flex items-center space-x-3">
+                    <span>🔍</span>
+                    <span>Generate ZK Proof & Check Eligibility</span>
+                    <span class="tooltip-trigger text-dark-bg" data-tooltip="proof-generation">❓</span>
+                </span>
+                <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+            
+            <div class="mt-8 hidden" id="loadingContainer">
+                <div class="flex justify-center mb-4">
+                    <div class="w-16 h-16 border-4 border-neon-blue/30 border-t-neon-blue rounded-full animate-spin"></div>
+                </div>
+                <div class="text-neon-blue font-mono text-lg mb-6">Generating zero-knowledge proof...</div>
+                <div class="flex justify-center space-x-4 flex-wrap" id="loadingSteps">
+                    <div class="step px-4 py-2 bg-white/10 rounded-full text-sm font-mono border border-white/20">📊 Computing witness...</div>
+                    <div class="step px-4 py-2 bg-white/10 rounded-full text-sm font-mono border border-white/20">🔐 Generating proof...</div>
+                    <div class="step px-4 py-2 bg-white/10 rounded-full text-sm font-mono border border-white/20">✅ Verifying proof...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="glass-card rounded-2xl p-8 neon-border hidden" id="resultsSection">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-xl flex items-center justify-center">
+                    <span class="text-2xl">🎯</span>
+                </div>
+                <h2 class="text-2xl font-bold text-white font-mono">Verification Results</h2>
+                <span class="tooltip-trigger text-neon-blue cursor-help ml-auto" data-tooltip="verification">❓</span>
+            </div>
+            <div class="mb-6" id="resultContent">
+                <!-- Results will be populated here -->
+            </div>
+            <div class="bg-glass rounded-xl p-6 border border-neon-blue/30">
+                <div class="flex items-center space-x-3 mb-3">
+                    <span class="text-2xl">🔒</span>
+                    <span class="tooltip-trigger text-neon-blue font-bold cursor-help" data-tooltip="privacy">Privacy Preserved</span>
+                </div>
+                <p class="text-blue-200 font-mono text-sm">The applicant's actual score and specific disqualifier details remain completely hidden!</p>
+            </div>
+        </section>
+
+        <!-- Workflow Section -->
+        <section class="glass-card rounded-2xl p-8 neon-border mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent font-mono">
+                📋 How It Works
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-glass rounded-xl p-6 border border-white/10 hover:border-neon-blue/50 transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-neon-blue to-blue-600 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
+                        <span class="text-2xl font-bold text-white">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center font-mono">Employer Sets Requirements</h3>
+                    <p class="text-blue-200 text-center text-sm">Define minimum TruaScore and relevant disqualifiers for the position</p>
+                </div>
+                <div class="bg-glass rounded-xl p-6 border border-white/10 hover:border-neon-purple/50 transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-neon-purple to-purple-600 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
+                        <span class="text-2xl font-bold text-white">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center font-mono">Applicant Generates Proof</h3>
+                    <p class="text-purple-200 text-center text-sm">Create a zero-knowledge proof of eligibility without revealing sensitive data</p>
+                </div>
+                <div class="bg-glass rounded-xl p-6 border border-white/10 hover:border-green-400/50 transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
+                        <span class="text-2xl font-bold text-white">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center font-mono">Verification</h3>
+                    <p class="text-green-200 text-center text-sm">Employer receives yes/no answer without seeing actual scores or details</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center glass-card rounded-2xl p-6 border border-white/10">
+            <p class="text-blue-200 font-mono mb-2">🚀 Powered by Circom & SnarkJS | 🔐 Zero-Knowledge Technology Demo</p>
+            <p class="text-blue-300 text-sm">Inspired by Trua's privacy-first trust platform</p>
+        </footer>
+    </div>
+
+    <!-- Tooltip Container -->
+    <div id="tooltip" class="fixed z-50 px-4 py-2 bg-dark-bg border border-neon-blue/50 rounded-lg text-sm font-mono text-white shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 max-w-xs"></div>
+
+    <!-- Custom Styles for Interactive Elements -->
+    <style>
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #8b5cf6);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0, 212, 255, 0.5);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        input:checked + .checkbox-custom {
+            background: linear-gradient(45deg, #00d4ff, #8b5cf6);
+            border-color: #00d4ff;
+        }
+        
+        input:checked + .checkbox-custom::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #0a0e27;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .step.active {
+            background: linear-gradient(45deg, #00d4ff, #8b5cf6);
+            color: #0a0e27;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="tooltips.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
