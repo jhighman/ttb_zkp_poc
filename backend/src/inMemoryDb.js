@@ -9,14 +9,16 @@
 const stores = {
   jobs: [],
   applicants: [],
-  applications: []
+  applications: [],
+  employers: []
 };
 
 // Counter for generating unique IDs
 const counters = {
   jobs: 1,
   applicants: 1,
-  applications: 1
+  applications: 1,
+  employers: 1
 };
 
 // Helper function to generate a unique ID
@@ -294,11 +296,56 @@ const inMemoryMongoose = {
 
 // Sample data for testing
 const sampleData = {
+  employers: [
+    {
+      _id: '1',
+      name: 'Trua Technologies',
+      did: 'did:web:trua.technologies',
+      email: 'hr@trua.technologies',
+      phone: '555-123-4567',
+      website: 'https://trua.technologies',
+      description: 'Leading provider of privacy-preserving verification systems using Zero-Knowledge Proofs.',
+      industry: 'Technology',
+      location: 'Remote',
+      issuedCredentials: [],
+      createdAt: new Date('2025-01-01').toISOString(),
+      updatedAt: new Date('2025-01-01').toISOString()
+    },
+    {
+      _id: '2',
+      name: 'CryptoTrust Inc.',
+      did: 'did:web:cryptotrust.io',
+      email: 'careers@cryptotrust.io',
+      phone: '555-987-6543',
+      website: 'https://cryptotrust.io',
+      description: 'Blockchain solutions for financial services.',
+      industry: 'Finance',
+      location: 'San Francisco, CA',
+      issuedCredentials: [],
+      createdAt: new Date('2025-01-15').toISOString(),
+      updatedAt: new Date('2025-01-15').toISOString()
+    },
+    {
+      _id: '3',
+      name: 'SecureData Systems',
+      did: 'did:web:securedata.systems',
+      email: 'jobs@securedata.systems',
+      phone: '555-456-7890',
+      website: 'https://securedata.systems',
+      description: 'Privacy-preserving systems for sensitive data handling.',
+      industry: 'Cybersecurity',
+      location: 'Boston, MA',
+      issuedCredentials: [],
+      createdAt: new Date('2025-02-01').toISOString(),
+      updatedAt: new Date('2025-02-01').toISOString()
+    }
+  ],
   jobs: [
     {
       _id: '1',
       title: 'Senior Software Engineer',
       company: 'Trua Technologies',
+      employer: '1',
       location: 'Remote',
       type: 'Full-time',
       description: 'Join our team to build privacy-preserving verification systems using Zero-Knowledge Proofs.',
@@ -393,6 +440,7 @@ const sampleData = {
     {
       _id: '1',
       name: 'Applicant A',
+      did: 'did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK',
       email: 'applicanta@example.com',
       profile: {
         truaScore: 320,
@@ -405,11 +453,35 @@ const sampleData = {
         }
       },
       createdAt: new Date('2025-07-01').toISOString(),
-      updatedAt: new Date('2025-07-01').toISOString()
+      updatedAt: new Date('2025-07-01').toISOString(),
+      verifiableCredentials: [
+        {
+          type: 'BackgroundCheckCredential',
+          issuer: 'did:web:truacheck.com',
+          issuanceDate: new Date('2025-06-15').toISOString(),
+          expirationDate: new Date('2026-06-15').toISOString(),
+          credentialId: 'vc:truacheck:1234567890',
+          credentialSubject: {
+            id: 'did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK',
+            truaScore: 320,
+            checkDate: new Date('2025-06-15').toISOString(),
+            checkType: 'Comprehensive'
+          },
+          proof: {
+            type: 'Ed25519Signature2020',
+            created: new Date('2025-06-15').toISOString(),
+            verificationMethod: 'did:web:truacheck.com#key-1',
+            proofPurpose: 'assertionMethod',
+            proofValue: 'z3JEfhMXRY4Yd9mZ2TYcUmEF2QcxGQvdpgmhLHrTXszjGnPGYZJHRTBKrMJatMUdyNL9JpU'
+          },
+          status: 'Active'
+        }
+      ]
     },
     {
       _id: '2',
       name: 'Applicant B',
+      did: 'did:key:z6MkhyDqYbFZ952bS2Aq3UPaWYdQoKFGhUCCMTKdvEFYFrxn',
       email: 'applicantb@example.com',
       profile: {
         truaScore: 250,
@@ -422,11 +494,35 @@ const sampleData = {
         }
       },
       createdAt: new Date('2025-07-02').toISOString(),
-      updatedAt: new Date('2025-07-02').toISOString()
+      updatedAt: new Date('2025-07-02').toISOString(),
+      verifiableCredentials: [
+        {
+          type: 'BackgroundCheckCredential',
+          issuer: 'did:web:truacheck.com',
+          issuanceDate: new Date('2025-06-10').toISOString(),
+          expirationDate: new Date('2026-06-10').toISOString(),
+          credentialId: 'vc:truacheck:0987654321',
+          credentialSubject: {
+            id: 'did:key:z6MkhyDqYbFZ952bS2Aq3UPaWYdQoKFGhUCCMTKdvEFYFrxn',
+            truaScore: 250,
+            checkDate: new Date('2025-06-10').toISOString(),
+            checkType: 'Comprehensive'
+          },
+          proof: {
+            type: 'Ed25519Signature2020',
+            created: new Date('2025-06-10').toISOString(),
+            verificationMethod: 'did:web:truacheck.com#key-1',
+            proofPurpose: 'assertionMethod',
+            proofValue: 'z4JEfhMXRY4Yd9mZ2TYcUmEF2QcxGQvdpgmhLHrTXszjGnPGYZJHRTBKrMJatMUdyNL9JpU'
+          },
+          status: 'Active'
+        }
+      ]
     },
     {
       _id: '3',
       name: 'Applicant C',
+      did: 'did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH',
       email: 'applicantc@example.com',
       profile: {
         truaScore: 290,
@@ -439,10 +535,69 @@ const sampleData = {
         }
       },
       createdAt: new Date('2025-07-03').toISOString(),
-      updatedAt: new Date('2025-07-03').toISOString()
+      updatedAt: new Date('2025-07-03').toISOString(),
+      verifiableCredentials: [
+        {
+          type: 'BackgroundCheckCredential',
+          issuer: 'did:web:truacheck.com',
+          issuanceDate: new Date('2025-06-05').toISOString(),
+          expirationDate: new Date('2026-06-05').toISOString(),
+          credentialId: 'vc:truacheck:5678901234',
+          credentialSubject: {
+            id: 'did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH',
+            truaScore: 290,
+            checkDate: new Date('2025-06-05').toISOString(),
+            checkType: 'Comprehensive'
+          },
+          proof: {
+            type: 'Ed25519Signature2020',
+            created: new Date('2025-06-05').toISOString(),
+            verificationMethod: 'did:web:truacheck.com#key-1',
+            proofPurpose: 'assertionMethod',
+            proofValue: 'z5JEfhMXRY4Yd9mZ2TYcUmEF2QcxGQvdpgmhLHrTXszjGnPGYZJHRTBKrMJatMUdyNL9JpU'
+          },
+          status: 'Active'
+        }
+      ]
     }
   ],
-  applications: []
+  applications: [
+    {
+      _id: '1',
+      jobId: '1',
+      applicantId: '1',
+      status: 'Verified',
+      zkpVerification: {
+        verified: true,
+        proofGenerated: true,
+        proofVerified: true,
+        timestamp: new Date('2025-07-20').toISOString()
+      },
+      verifiableCredential: {
+        id: 'vc:trua:application:12345',
+        type: 'JobApplicationCredential',
+        issuer: 'did:web:trua.technologies',
+        issuanceDate: new Date('2025-07-20').toISOString(),
+        credentialSubject: {
+          applicantId: 'did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK',
+          jobId: '1',
+          applicationDate: new Date('2025-07-20').toISOString(),
+          eligibilityVerified: true
+        },
+        proof: {
+          type: 'Ed25519Signature2020',
+          created: new Date('2025-07-20').toISOString(),
+          verificationMethod: 'did:web:trua.technologies#key-1',
+          proofPurpose: 'assertionMethod',
+          proofValue: 'z6JEfhMXRY4Yd9mZ2TYcUmEF2QcxGQvdpgmhLHrTXszjGnPGYZJHRTBKrMJatMUdyNL9JpU'
+        },
+        status: 'Issued'
+      },
+      appliedDate: new Date('2025-07-20').toISOString(),
+      createdAt: new Date('2025-07-20').toISOString(),
+      updatedAt: new Date('2025-07-20').toISOString()
+    }
+  ]
 };
 
 // Initialize the database with sample data
@@ -451,11 +606,13 @@ const initializeDatabase = () => {
   stores.jobs = clone(sampleData.jobs);
   stores.applicants = clone(sampleData.applicants);
   stores.applications = clone(sampleData.applications);
+  stores.employers = clone(sampleData.employers);
   
   // Reset counters to be higher than the highest ID in the sample data
   counters.jobs = 4; // After 3 sample jobs
   counters.applicants = 4; // After 3 sample applicants
-  counters.applications = 1;
+  counters.applications = 2; // After 1 sample application
+  counters.employers = 4; // After 3 sample employers
   
   console.log('In-memory database initialized with sample data');
 };

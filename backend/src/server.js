@@ -41,12 +41,13 @@ mongoose.connect()
   });
 
 // Import routes
-const { jobRoutes, applicantRoutes, applicationRoutes } = require('./routes');
+const { jobRoutes, applicantRoutes, applicationRoutes, employerRoutes } = require('./routes');
 
 // Use routes
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applicants', applicantRoutes);
 app.use('/api/applications', applicationRoutes);
+app.use('/api/employers', employerRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

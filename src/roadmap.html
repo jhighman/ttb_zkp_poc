@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trua ZKP - Verifiable Credentials Roadmap</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0b1e;
+            --card-bg: #12152e;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: #e0e0ff;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glass-card {
+            background-color: rgba(18, 21, 46, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+        
+        .bg-neon-gradient {
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .text-neon-blue {
+            color: var(--neon-blue);
+        }
+        
+        .phase-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+        }
+        
+        .timeline-connector {
+            width: 2px;
+            background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <header class="py-6">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent text-center">
+                Verifiable Credentials Roadmap
+            </h1>
+            <p class="text-center text-blue-300 mt-2">
+                Extending Zero-Knowledge Proofs with Verifiable Credentials Standards
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="glass-card rounded-2xl p-8 neon-border mb-12">
+            <h2 class="text-2xl font-bold text-white mb-6">Vision Statement</h2>
+            <p class="text-blue-200 mb-4">
+                Our vision is to create a comprehensive trust platform that combines the privacy benefits of Zero-Knowledge Proofs with the standardization and interoperability of Verifiable Credentials. This roadmap outlines our incremental approach to building a system where individuals can selectively prove aspects of their credentials without revealing the underlying data, while organizations can verify these claims with cryptographic certainty.
+            </p>
+            <p class="text-blue-200">
+                Each phase builds upon the previous one, delivering immediate value while laying the foundation for more advanced capabilities. This approach ensures stakeholders realize benefits at every stage while progressing toward a complete privacy-preserving credential ecosystem.
+            </p>
+        </div>
+
+        <div class="relative">
+            <!-- Timeline connector -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 h-full">
+                <div class="timeline-connector h-full mx-auto"></div>
+            </div>
+
+            <!-- Phase 1 -->
+            <div class="relative z-10 mb-16">
+                <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -top-2"></div>
+                <div class="phase-card glass-card rounded-2xl p-8 neon-border max-w-4xl mx-auto">
+                    <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm inline-block mb-4">
+                        Phase 1: Credential Issuance Framework
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Establishing the Foundation</h3>
+                    <p class="text-blue-200 mb-6">
+                        Implement W3C Verifiable Credentials standard to create a framework for issuing, storing, and managing credentials that can later be used with ZKPs.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Key Components</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>W3C-compliant credential issuer service</li>
+                                <li>Decentralized Identifier (DID) implementation</li>
+                                <li>Secure credential wallet for applicants</li>
+                                <li>Basic verification portal for employers</li>
+                                <li>Credential schema registry</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Value Proposition</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>Standardized credential format across organizations</li>
+                                <li>Tamper-proof credential issuance</li>
+                                <li>Reduced fraud through cryptographic verification</li>
+                                <li>Portable credentials across multiple platforms</li>
+                                <li>Foundation for future privacy enhancements</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-900/30 rounded-lg p-4">
+                        <h4 class="font-bold text-white mb-2">Implementation Example</h4>
+                        <p class="text-blue-200 mb-2">
+                            A background check provider issues a W3C Verifiable Credential containing an applicant's TruaScore and background check results. The credential is cryptographically signed and stored in the applicant's digital wallet. Employers can request and verify the credential's authenticity without relying on the original issuer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="relative z-10 mb-16">
+                <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -top-2"></div>
+                <div class="phase-card glass-card rounded-2xl p-8 neon-border max-w-4xl mx-auto">
+                    <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm inline-block mb-4">
+                        Phase 2: Selective Disclosure
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Enhanced Privacy Controls</h3>
+                    <p class="text-blue-200 mb-6">
+                        Integrate selective disclosure capabilities using BBS+ signatures or similar cryptographic techniques, allowing credential holders to reveal only specific attributes from their credentials.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Key Components</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>BBS+ signature implementation</li>
+                                <li>Selective disclosure request protocol</li>
+                                <li>Enhanced wallet with disclosure controls</li>
+                                <li>Verification API for partial credential proofs</li>
+                                <li>Audit logging for disclosure events</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Value Proposition</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>Granular control over shared information</li>
+                                <li>Reduced data exposure while maintaining verifiability</li>
+                                <li>Compliance with data minimization principles</li>
+                                <li>Improved user experience for credential sharing</li>
+                                <li>Support for context-specific verification needs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-900/30 rounded-lg p-4">
+                        <h4 class="font-bold text-white mb-2">Implementation Example</h4>
+                        <p class="text-blue-200 mb-2">
+                            An applicant receives a job posting requiring a minimum TruaScore of 280. Using selective disclosure, they can create a presentation that proves their TruaScore is above 280 without revealing the exact score. Similarly, they can prove they have no relevant disqualifiers without revealing their complete background check results.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="relative z-10 mb-16">
+                <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -top-2"></div>
+                <div class="phase-card glass-card rounded-2xl p-8 neon-border max-w-4xl mx-auto">
+                    <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm inline-block mb-4">
+                        Phase 3: ZKP Integration
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Full Privacy Preservation</h3>
+                    <p class="text-blue-200 mb-6">
+                        Combine Verifiable Credentials with Zero-Knowledge Proofs to enable complex predicate proofs about credential attributes without revealing any values.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Key Components</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>ZKP circuit templates for common credential proofs</li>
+                                <li>Credential-to-ZKP conversion layer</li>
+                                <li>Advanced verification portal with ZKP support</li>
+                                <li>Proof request specification language</li>
+                                <li>Performance optimizations for mobile devices</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Value Proposition</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>Complete privacy preservation for credential holders</li>
+                                <li>Support for complex eligibility rules and predicates</li>
+                                <li>Cryptographic guarantees for verification results</li>
+                                <li>Elimination of data silos and centralized verification</li>
+                                <li>Reduced discrimination risk in verification processes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-900/30 rounded-lg p-4">
+                        <h4 class="font-bold text-white mb-2">Implementation Example</h4>
+                        <p class="text-blue-200 mb-2">
+                            An applicant can now generate zero-knowledge proofs directly from their verifiable credentials. For example, they can prove "My TruaScore is at least 50 points above the required minimum AND I have no felony convictions in the past 7 years" without revealing their actual TruaScore or any details about their background check.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="relative z-10 mb-16">
+                <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -top-2"></div>
+                <div class="phase-card glass-card rounded-2xl p-8 neon-border max-w-4xl mx-auto">
+                    <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm inline-block mb-4">
+                        Phase 4: Credential Ecosystem
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Interoperable Trust Network</h3>
+                    <p class="text-blue-200 mb-6">
+                        Expand the system into a complete ecosystem with multiple credential issuers, standardized schemas, and cross-domain verification capabilities.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Key Components</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>Credential exchange protocol</li>
+                                <li>Trust registry for issuers and verifiers</li>
+                                <li>Industry-specific credential schemas</li>
+                                <li>Governance framework for ecosystem participants</li>
+                                <li>Cross-platform integration capabilities</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Value Proposition</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>Network effects from ecosystem growth</li>
+                                <li>Reduced verification costs across organizations</li>
+                                <li>Streamlined onboarding for new participants</li>
+                                <li>Cross-domain credential verification</li>
+                                <li>Standardized trust infrastructure across industries</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-900/30 rounded-lg p-4">
+                        <h4 class="font-bold text-white mb-2">Implementation Example</h4>
+                        <p class="text-blue-200 mb-2">
+                            A job applicant can now use credentials from multiple sources (education institutions, previous employers, certification bodies, background check providers) to generate comprehensive zero-knowledge proofs of eligibility for positions across different industries. Employers benefit from standardized verification processes that work across their entire applicant pool.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="relative z-10">
+                <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -top-2"></div>
+                <div class="phase-card glass-card rounded-2xl p-8 neon-border max-w-4xl mx-auto">
+                    <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm inline-block mb-4">
+                        Phase 5: Advanced Applications
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Beyond Verification</h3>
+                    <p class="text-blue-200 mb-6">
+                        Leverage the established credential ecosystem for advanced applications beyond simple verification, including reputation systems, continuous monitoring, and AI-enhanced matching.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Key Components</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>Privacy-preserving reputation system</li>
+                                <li>Continuous credential monitoring framework</li>
+                                <li>AI-powered job matching with ZKP verification</li>
+                                <li>Decentralized governance mechanisms</li>
+                                <li>Cross-chain credential anchoring</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="font-bold text-neon-blue mb-2">Value Proposition</h4>
+                            <ul class="list-disc list-inside text-blue-200 space-y-2">
+                                <li>Proactive compliance monitoring without privacy loss</li>
+                                <li>Enhanced matching efficiency for employers and applicants</li>
+                                <li>Reduced friction in labor market mobility</li>
+                                <li>Support for new business models and applications</li>
+                                <li>Resilient, decentralized trust infrastructure</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-900/30 rounded-lg p-4">
+                        <h4 class="font-bold text-white mb-2">Implementation Example</h4>
+                        <p class="text-blue-200 mb-2">
+                            The system now enables privacy-preserving talent marketplaces where AI algorithms can match candidates to positions based on verified credentials without either party revealing sensitive information. Employers can specify complex requirements, and candidates can be automatically matched and verified without manual application processes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-8 neon-border mt-16">
+            <h2 class="text-2xl font-bold text-white mb-6">Implementation Considerations</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white/5 rounded-lg p-4">
+                    <h4 class="font-bold text-neon-blue mb-2">Technical Considerations</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-2">
+                        <li>Mobile-first development approach</li>
+                        <li>Cross-platform compatibility</li>
+                        <li>Performance optimization for ZKP generation</li>
+                        <li>Scalable infrastructure design</li>
+                        <li>Security-focused development practices</li>
+                    </ul>
+                </div>
+                <div class="bg-white/5 rounded-lg p-4">
+                    <h4 class="font-bold text-neon-blue mb-2">Adoption Strategy</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-2">
+                        <li>Industry-specific pilot programs</li>
+                        <li>Integration with existing HR systems</li>
+                        <li>Educational resources for all stakeholders</li>
+                        <li>Open standards participation</li>
+                        <li>Developer ecosystem cultivation</li>
+                    </ul>
+                </div>
+                <div class="bg-white/5 rounded-lg p-4">
+                    <h4 class="font-bold text-neon-blue mb-2">Regulatory Alignment</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-2">
+                        <li>Privacy regulation compliance by design</li>
+                        <li>Industry-specific regulatory frameworks</li>
+                        <li>Transparent governance processes</li>
+                        <li>Ethical AI principles for matching systems</li>
+                        <li>Regular compliance audits and reporting</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p class="text-blue-200">
+                This roadmap represents a strategic approach to building a comprehensive verifiable credentials ecosystem that preserves privacy through zero-knowledge proofs. Each phase delivers immediate value while building toward the complete vision, allowing for iterative development and adoption.
+            </p>
+        </div>
+    </main>
+
+    <footer class="py-8 text-center text-blue-400 text-sm">
+        <div class="flex justify-center space-x-6 my-4">
+            <a href="index.html" class="text-neon-blue hover:text-white transition-colors">Home</a>
+            <a href="roadmap.html" class="text-neon-blue hover:text-white transition-colors">Verifiable Credentials Roadmap</a>
+        </div>
+        <p>© 2025 Trua Technologies | Privacy-Preserving Trust Infrastructure</p>
+    </footer>
+
+    <script>
+        // Add any interactive elements or animations here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight the current phase based on URL parameter or default to first
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentPhase = urlParams.get('phase') || '1';
+            
+            // Add any additional interactive functionality here
+        });
+    </script>
+</body>
+</html>

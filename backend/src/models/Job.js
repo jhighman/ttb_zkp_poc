@@ -7,6 +7,12 @@ const jobSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  employer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Employer',
+    required: true
+  },
+  // Keep company name for backward compatibility and display purposes
   company: {
     type: String,
     required: true,
