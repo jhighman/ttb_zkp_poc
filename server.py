@@ -29,17 +29,17 @@ class CORSHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         print(f"[{self.log_date_time_string()}] {format % args}")
 
 def main():
-    # Change to src directory to serve files
-    src_dir = Path(__file__).parent / 'src'
-    if src_dir.exists():
-        os.chdir(src_dir)
-        print(f"📁 Serving files from: {src_dir.absolute()}")
-    else:
-        print("❌ Error: 'src' directory not found!")
-        sys.exit(1)
+    # Serve files from the project root directory
+    root_dir = Path(__file__).parent
+    print(f"📁 Serving files from: {root_dir.absolute()}")
+    
+    # Check if src directory exists
+    src_dir = root_dir / 'src'
+    if not src_dir.exists():
+        print("❌ Warning: 'src' directory not found!")
 
     # Set up server
-    PORT = 8000
+    PORT = 8001  # Use a different port
     Handler = CORSHTTPRequestHandler
     
     try:

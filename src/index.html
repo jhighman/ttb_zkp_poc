@@ -254,6 +254,11 @@
             </div>
         </section>
 
+        <!-- Job Board Section -->
+        <section id="main-content" class="mb-12">
+            <!-- Job board will be dynamically inserted here -->
+        </section>
+
         <!-- Workflow Section -->
         <section class="glass-card rounded-2xl p-8 neon-border mb-12">
             <h2 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent font-mono">
@@ -341,6 +346,30 @@
 
     <!-- Scripts -->
     <script src="tooltips.js"></script>
+    <script src="jobBoard.js"></script>
+    <script src="zkpVerifier.js"></script>
     <script src="app.js"></script>
+    
+    <script>
+        // Initialize components when DOM is loaded
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize the ZKP verifier
+            const zkpVerifier = new ZKPVerifier();
+            await zkpVerifier.init();
+            
+            // Initialize the job board
+            const jobBoard = new JobBoard();
+            await jobBoard.init();
+            
+            // Make them globally accessible
+            window.zkpVerifier = zkpVerifier;
+            window.jobBoard = jobBoard;
+            
+            // Connect job board to ZKP verifier
+            jobBoard.zkpVerifier = zkpVerifier;
+            
+            console.log('ZKP Job Board initialized with ZKP verification capabilities');
+        });
+    </script>
 </body>
 </html>
