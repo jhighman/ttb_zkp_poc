@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Board - Modular Test</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#0f172a',
+                        'neon-blue': '#38bdf8',
+                        'neon-purple': '#a855f7',
+                        'neon-green': '#4ade80'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glass-card {
+            background-color: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        
+        .shadow-neon-glow:hover {
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+        
+        .bg-neon-gradient {
+            background: linear-gradient(90deg, #38bdf8, #a855f7);
+        }
+        
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Custom checkbox styles */
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #8b5cf6);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0, 212, 255, 0.5);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        input:checked + .checkbox-custom {
+            background: linear-gradient(45deg, #00d4ff, #8b5cf6);
+            border-color: #00d4ff;
+        }
+        
+        input:checked + .checkbox-custom::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #0a0e27;
+            font-weight: bold;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4">
+    <header class="container mx-auto mb-8">
+        <h1 class="text-4xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent font-mono">
+            ZKP Job Board - Modular Architecture
+        </h1>
+        <p class="text-blue-300 mt-2">
+            A modular implementation of the job board using component-based architecture
+        </p>
+        <div class="mt-4">
+            <a href="index.html" class="inline-flex items-center space-x-2 bg-glass rounded-full px-6 py-3 border border-neon-blue/30 hover:bg-neon-blue/10 transition-all duration-300">
+                <span class="text-neon-blue">←</span>
+                <span class="text-sm font-mono">Back to Main Demo</span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Architecture Overview -->
+    <section class="container mx-auto mb-8 glass-card rounded-2xl p-6 neon-border">
+        <h2 class="text-2xl font-bold text-neon-blue mb-4 font-mono">Modular Architecture</h2>
+        <p class="text-blue-100 mb-4">
+            This implementation refactors the monolithic job board into a modular structure with separate components, services, and utilities.
+            This approach improves maintainability, readability, and follows software engineering best practices.
+        </p>
+        
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-dark-bg/50 p-4 rounded-lg border border-neon-blue/30">
+                <h3 class="text-lg font-bold text-neon-blue mb-2 font-mono">Components</h3>
+                <ul class="text-blue-200 text-sm space-y-2">
+                    <li>• JobCard - Renders individual job listings</li>
+                    <li>• ApplicationModal - Handles job applications</li>
+                    <li>• CreateJobModal - Manages job creation</li>
+                </ul>
+            </div>
+            <div class="bg-dark-bg/50 p-4 rounded-lg border border-neon-purple/30">
+                <h3 class="text-lg font-bold text-neon-purple mb-2 font-mono">Services</h3>
+                <ul class="text-blue-200 text-sm space-y-2">
+                    <li>• JobService - Manages job data operations</li>
+                    <li>• DidService - Handles DID verification</li>
+                </ul>
+            </div>
+            <div class="bg-dark-bg/50 p-4 rounded-lg border border-green-400/30">
+                <h3 class="text-lg font-bold text-green-400 mb-2 font-mono">Utilities</h3>
+                <ul class="text-blue-200 text-sm space-y-2">
+                    <li>• Notifications - Displays user notifications</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bg-dark-bg/50 p-4 rounded-lg border border-white/10">
+            <h3 class="text-lg font-bold text-white mb-2 font-mono">Benefits</h3>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div class="text-blue-200">
+                    <p>✓ Separation of concerns</p>
+                    <p>✓ Improved maintainability</p>
+                    <p>✓ Better code organization</p>
+                </div>
+                <div class="text-blue-200">
+                    <p>✓ Easier testing and debugging</p>
+                    <p>✓ Reusable components</p>
+                    <p>✓ Scalable architecture</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <main id="main-content" class="container mx-auto">
+        <!-- Job board will be rendered here -->
+    </main>
+    
+    <!-- Mock ZKP Verifier -->
+    <script>
+        class MockZkpVerifier {
+            constructor() {
+                console.log('Mock ZKP Verifier initialized');
+            }
+            
+            async verifyProof(proof, publicInputs) {
+                console.log('Verifying proof:', proof);
+                console.log('Public inputs:', publicInputs);
+                
+                // Simulate verification delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Always return true for testing
+                return true;
+            }
+            
+            async generateProof(did, requiredCredentials) {
+                console.log('Generating proof for DID:', did);
+                console.log('Required credentials:', requiredCredentials);
+                
+                // Simulate proof generation delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Return a mock proof
+                return {
+                    proof: {
+                        pi_a: ['12345', '67890', '13579'],
+                        pi_b: [['24680', '97531'], ['86420', '13579']],
+                        pi_c: ['11111', '22222']
+                    },
+                    publicInputs: ['1', '0', '1'],
+                    success: true
+                };
+            }
+        }
+    </script>
+    
+    <!-- Load modular components -->
+    <script src="jobBoard/utils/notifications.js"></script>
+    <script src="jobBoard/services/DidService.js"></script>
+    <script src="jobBoard/services/JobService.js"></script>
+    <script src="jobBoard/components/JobCard.js"></script>
+    <script src="jobBoard/components/ApplicationModal.js"></script>
+    <script src="jobBoard/components/CreateJobModal.js"></script>
+    <script src="jobBoard.js"></script>
+    
+    <!-- Initialize job board -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Create ZKP verifier
+                const zkpVerifier = new MockZkpVerifier();
+                
+                // Create and initialize job board
+                const jobBoard = new JobBoard();
+                
+                // Set ZKP verifier
+                jobBoard.setZkpVerifier(zkpVerifier);
+                
+                // Initialize job board
+                await jobBoard.init();
+                
+                console.log('Job board initialized successfully');
+            } catch (error) {
+                console.error('Error initializing job board:', error);
+            }
+        });
+    </script>
+    
+    <!-- Footer -->
+    <footer class="container mx-auto mt-12 text-center glass-card rounded-2xl p-6 border border-white/10">
+        <p class="text-blue-200 font-mono mb-2">🧩 Modular Architecture | 🔐 Zero-Knowledge Technology Demo</p>
+        <div class="flex justify-center space-x-6 my-4">
+            <a href="index.html" class="text-neon-blue hover:text-white transition-colors">Home</a>
+            <a href="roadmap.html" class="text-neon-blue hover:text-white transition-colors">Verifiable Credentials Roadmap</a>
+            <a href="did-progression.html" class="text-neon-blue hover:text-white transition-colors">DID Implementation Steps</a>
+            <a href="jobBoardTest.html" class="text-neon-blue hover:text-white transition-colors">Modular Job Board</a>
+        </div>
+        <p class="text-blue-300 text-sm">Refactored for better maintainability and scalability</p>
+    </footer>
+</body>
+</html>

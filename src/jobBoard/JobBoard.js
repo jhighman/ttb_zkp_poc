@@ -1,25 +1,28 @@
-// JobBoard Module Entry Point
-// This file serves as the main entry point for the JobBoard module
+import { JobCard } from './components/JobCard.js';
+import { ApplicationModal } from './components/ApplicationModal.js';
+import { CreateJobModal } from './components/CreateJobModal.js';
+import { JobService } from './services/JobService.js';
+import { DidService } from './services/DidService.js';
+import { showNotification, showError } from './utils/notifications.js';
 
-// In a real ES modules environment, we would use import statements like:
-// import { JobCard } from './jobBoard/components/JobCard.js';
-// import { ApplicationModal } from './jobBoard/components/ApplicationModal.js';
-// import { CreateJobModal } from './jobBoard/components/CreateJobModal.js';
-// import { JobService } from './jobBoard/services/JobService.js';
-// import { DidService } from './jobBoard/services/DidService.js';
-// import { showNotification, showError } from './jobBoard/utils/notifications.js';
-
-// For compatibility with the current setup, we'll use a class that internally uses our modular components
-class JobBoard {
+/**
+ * Main JobBoard class for the ZKP Job Eligibility Demo
+ */
+export class JobBoard {
+    /**
+     * Create a new JobBoard instance
+     */
     constructor() {
-        // Initialize services
         this.jobService = new JobService();
         this.didService = new DidService();
         this.currentApplicant = null;
         this.zkpVerifier = null; // Will be set after initialization
     }
 
-    // Initialize the job board
+    /**
+     * Initialize the job board
+     * @returns {Promise<void>}
+     */
     async init() {
         try {
             // Create container for job board
@@ -75,22 +78,27 @@ class JobBoard {
             this.addEventListeners();
         } catch (error) {
             console.error('Error initializing job board:', error);
-            JobBoardNotifications.showError('Failed to initialize job board. Please try again later.');
+            showError('Failed to initialize job board. Please try again later.');
         }
     }
     
-    // Fetch jobs from the service
+    /**
+     * Fetch jobs from the service
+     * @returns {Promise<void>}
+     */
     async fetchJobs() {
         try {
             await this.jobService.fetchJobs();
             this.renderJobs();
         } catch (error) {
             console.error('Error fetching jobs:', error);
-            JobBoardNotifications.showError('Failed to fetch job listings. Please try again later.');
+            showError('Failed to fetch job listings. Please try again later.');
         }
     }
     
-    // Render jobs in the UI
+    /**
+     * Render jobs in the UI
+     */
     renderJobs() {
         const jobListingsContainer = document.getElementById('job-listings');
         
@@ -111,30 +119,36 @@ class JobBoard {
             return;
         }
         
-        // Add each job using the JobCard component
+        // Add each job
         this.jobService.jobs.forEach(job => {
             const jobCard = JobCard.create(job, (jobId) => this.handleApplyClick(jobId));
             jobListingsContainer.appendChild(jobCard);
         });
     }
     
-    // Add event listeners
+    /**
+     * Add event listeners
+     */
     addEventListeners() {
         // Event listeners are now handled by the individual components
     }
     
-    // Handle apply button click
+    /**
+     * Handle apply button click
+     * @param {string} jobId - The job ID
+     */
     async handleApplyClick(jobId) {
         const job = this.jobService.getJobById(jobId);
         if (!job) return;
         
-        // Show application modal using the ApplicationModal component
+        // Show application modal
         ApplicationModal.show(job, this.zkpVerifier, this.didService);
     }
     
-    // Handle create job button click
+    /**
+     * Handle create job button click
+     */
     handleCreateJobClick() {
-        // Show create job modal using the CreateJobModal component
         CreateJobModal.show(async (newJob) => {
             try {
                 // Create job using the service
@@ -144,22 +158,19 @@ class JobBoard {
                 this.renderJobs();
                 
                 // Show success message
-                JobBoardNotifications.showNotification('Job created successfully!', 'success');
+                showNotification('Job created successfully!', 'success');
             } catch (error) {
                 console.error('Error creating job:', error);
-                JobBoardNotifications.showNotification('Error creating job. Please try again.', 'error');
+                showNotification('Error creating job. Please try again.', 'error');
             }
         });
     }
     
-    // Set the ZKP verifier instance
+    /**
+     * Set the ZKP verifier instance
+     * @param {Object} zkpVerifier - The ZKP verifier instance
+     */
     setZkpVerifier(zkpVerifier) {
         this.zkpVerifier = zkpVerifier;
     }
 }
-
-// Export the JobBoard class
-window.JobBoard = JobBoard;
-
-// Log that the modular JobBoard is loaded
-console.log('Modular JobBoard loaded');
