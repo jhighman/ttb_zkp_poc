@@ -79,6 +79,9 @@
                 Our vision is to create a comprehensive trust platform that combines the privacy benefits of Zero-Knowledge Proofs with the standardization and interoperability of Verifiable Credentials across multiple domains. This roadmap outlines our incremental approach to building a system where individuals can selectively prove aspects of their credentials without revealing the underlying data, while organizations can verify these claims with cryptographic certainty.
             </p>
             <p class="text-blue-200 mb-4">
+                At the center of this vision is the Trua Trust Bureau (TTB), which serves as the trusted entity responsible for issuing verifiable credentials, generating zero-knowledge proofs, facilitating selective disclosures, maintaining data integrity, and supporting expiry and revocation mechanisms. By centralizing these critical functions within TTB, we can ensure consistent security, privacy, and trust across all interactions.
+            </p>
+            <p class="text-blue-200 mb-4">
                 We begin with foundational ZKP concepts and progressively expand to more complex scenarios—from employment verification to dating safety, healthcare privacy, and ultimately a comprehensive Trust Bureau that brokers trust exchanges across all aspects of digital life.
             </p>
             <p class="text-blue-200">
@@ -277,8 +280,19 @@
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-4">Brokering Trust at Scale</h3>
                     <p class="text-blue-200 mb-6">
-                        Establish a Trust Bureau that facilitates secure, privacy-preserving trust exchanges between consumers and businesses across multiple domains and use cases.
+                        Establish the Trua Trust Bureau (TTB) as the central trusted entity that facilitates secure, privacy-preserving trust exchanges between consumers and businesses across multiple domains and use cases.
                     </p>
+                    
+                    <div class="bg-white/5 rounded-lg p-4 mb-6">
+                        <h4 class="font-bold text-neon-blue mb-2">Understanding TTB's Core Responsibilities</h4>
+                        <ul class="list-disc list-inside text-blue-200 space-y-2">
+                            <li><span class="font-semibold">Issuing Verifiable Credentials:</span> TTB issues cryptographically signed credentials (e.g., background checks, identity verification) that serve as the foundation for trust in the system.</li>
+                            <li><span class="font-semibold">Generating Zero-Knowledge Proofs:</span> TTB creates ZKPs that allow applicants to prove eligibility for jobs, services, or relationships without revealing sensitive personal data.</li>
+                            <li><span class="font-semibold">Facilitating Selective Disclosures:</span> Using BBS+ signatures, TTB enables minimal attribute revelation when appropriate, giving users control over what information is shared.</li>
+                            <li><span class="font-semibold">Maintaining Data Integrity:</span> TTB serves as the source of truth for sensitive applicant data (e.g., TruaScore, background check results), ensuring information remains secure and accurate.</li>
+                            <li><span class="font-semibold">Supporting Expiry and Revocation:</span> TTB manages credential lifecycles through expiration dates and revocation mechanisms, ensuring trust is based on current, valid information.</li>
+                        </ul>
+                    </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div class="bg-white/5 rounded-lg p-4">
@@ -288,7 +302,9 @@
                                 <li>Trust scoring and reputation framework</li>
                                 <li>Automated compliance verification</li>
                                 <li>Cross-industry credential exchange protocols</li>
-                                <li>Decentralized governance and revenue models</li>
+                                <li>Credential status and revocation infrastructure</li>
+                                <li>Secure data custody with privacy-preserving access</li>
+                                <li>Standardized ZKP circuit library for common verifications</li>
                             </ul>
                         </div>
                         <div class="bg-white/5 rounded-lg p-4">
@@ -298,6 +314,8 @@
                                 <li>Reduced verification costs for businesses</li>
                                 <li>Consumer control over personal data</li>
                                 <li>Streamlined compliance for regulated industries</li>
+                                <li>Enhanced security through centralized trust management</li>
+                                <li>Consistent privacy protection across all interactions</li>
                                 <li>New business models based on privacy-preserving verification</li>
                             </ul>
                         </div>
@@ -306,7 +324,16 @@
                     <div class="bg-blue-900/30 rounded-lg p-4">
                         <h4 class="font-bold text-white mb-2">Implementation Example</h4>
                         <p class="text-blue-200 mb-2">
-                            The Trust Bureau enables consumers to selectively share verified credentials across multiple domains—from employment and dating to healthcare and financial services—all while maintaining privacy and control. A consumer can prove their identity, income, and residency to a mortgage provider; their background check status to a dating platform; and their insurance coverage to a healthcare provider—all through a single interface with zero-knowledge proofs ensuring that only the minimum necessary information is disclosed in each context.
+                            As the central trusted entity, the Trua Trust Bureau enables secure, privacy-preserving interactions across multiple domains:
+                        </p>
+                        <ul class="list-disc list-inside text-blue-200 space-y-2 mt-2">
+                            <li><span class="font-semibold">Employment Verification:</span> TTB issues background check credentials, then generates ZKPs that prove an applicant meets job requirements without revealing their actual TruaScore or specific background details.</li>
+                            <li><span class="font-semibold">Dating Safety:</span> TTB verifies identity and background information, then creates time-bound proofs that confirm safety-relevant information without exposing personal details.</li>
+                            <li><span class="font-semibold">Healthcare Privacy:</span> TTB facilitates selective disclosure of insurance coverage or medical history information, revealing only what's necessary for a specific healthcare interaction.</li>
+                            <li><span class="font-semibold">Financial Services:</span> TTB enables consumers to prove income or creditworthiness to financial institutions without revealing exact salary or complete financial history.</li>
+                        </ul>
+                        <p class="text-blue-200 mt-2">
+                            In each case, TTB maintains the source data securely, manages credential expiry and revocation, and generates the appropriate proofs or disclosures based on the specific context—all while ensuring the user maintains control over their information and privacy.
                         </p>
                     </div>
                 </div>
@@ -342,25 +369,39 @@
                     </ul>
                 </div>
                 <div class="bg-white/5 rounded-lg p-4">
-                    <h4 class="font-bold text-neon-blue mb-2">Architecture</h4>
+                    <h4 class="font-bold text-neon-blue mb-2">Industry Verticals</h4>
                     <ul class="list-disc list-inside text-blue-200 space-y-2">
-                        <li>Edge-Centric Computation Model</li>
-                        <li>Decentralized Trust Registry</li>
-                        <li>Domain-Specific ZKP Circuit Libraries</li>
-                        <li>Credential Exchange Protocol</li>
-                        <li>Verifier Registry with Reputation</li>
-                        <li>Issuer Accreditation Framework</li>
-                        <li>Revocation Management System</li>
+                        <li>Employment & Background Verification</li>
+                        <li>Dating & Personal Safety</li>
+                        <li>Healthcare & Medical Records</li>
+                        <li>Financial Services & KYC</li>
+                        <li>Education & Credential Verification</li>
+                        <li>Real Estate & Tenant Screening</li>
+                        <li>Supply Chain & Product Provenance</li>
                     </ul>
                 </div>
             </div>
             
             <p class="text-blue-200 mb-4">
-                The implementation of this roadmap relies on a carefully designed architecture that balances security, privacy, usability, and interoperability. By leveraging established standards like W3C Verifiable Credentials and DIDs, we ensure compatibility with the broader ecosystem while our ZKP integration provides the privacy guarantees that make this approach unique.
+                The implementation of this roadmap relies on a carefully designed architecture with the Trua Trust Bureau at its center, balancing security, privacy, usability, and interoperability. By leveraging established standards like W3C Verifiable Credentials and DIDs, we ensure compatibility with the broader ecosystem while our ZKP integration provides the privacy guarantees that make this approach unique.
             </p>
             
+            <p class="text-blue-200 mb-4">
+                The Trua Trust Bureau serves as the cornerstone of this architecture, providing:
+            </p>
+            
+            <div class="bg-white/5 rounded-lg p-4 mb-4">
+                <ul class="list-disc list-inside text-blue-200 space-y-2">
+                    <li><span class="font-semibold">Centralized Trust Management:</span> TTB acts as the trusted source of truth for sensitive data, ensuring consistency and integrity across all interactions.</li>
+                    <li><span class="font-semibold">Privacy-Preserving Verification:</span> Through ZKPs and selective disclosure, TTB enables verification without exposing sensitive data.</li>
+                    <li><span class="font-semibold">Credential Lifecycle Management:</span> TTB handles issuance, expiry, and revocation of credentials to maintain their trustworthiness over time.</li>
+                    <li><span class="font-semibold">Cross-Domain Orchestration:</span> TTB provides a unified interface for trust verification across different contexts and industries.</li>
+                    <li><span class="font-semibold">Standardized Security Model:</span> TTB implements consistent security practices across all credential types and verification scenarios.</li>
+                </ul>
+            </div>
+            
             <p class="text-blue-200">
-                Each domain (employment, dating, healthcare, etc.) requires specialized ZKP circuits and credential schemas, but the underlying architecture remains consistent—enabling a unified user experience across contexts while addressing domain-specific requirements. This approach allows for incremental adoption while building toward a comprehensive trust infrastructure that spans all aspects of digital life.
+                Each domain (employment, dating, healthcare, etc.) requires specialized ZKP circuits and credential schemas, but the underlying architecture remains consistent—enabling a unified user experience across contexts while addressing domain-specific requirements. This approach allows for incremental adoption while building toward a comprehensive trust infrastructure that spans all aspects of digital life, with the Trua Trust Bureau as the central facilitator of trust.
             </p>
         </div>
     </main>
