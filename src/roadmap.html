@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trua ZKP - Verifiable Credentials Roadmap</title>
+    <title>Trua ZKP - Trust Infrastructure Roadmap</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
         :root {
@@ -64,10 +64,10 @@
     <header class="py-6">
         <div class="container mx-auto px-4">
             <h1 class="text-4xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent text-center">
-                Verifiable Credentials Roadmap
+                Trust Infrastructure Roadmap
             </h1>
             <p class="text-center text-blue-300 mt-2">
-                Extending Zero-Knowledge Proofs with Verifiable Credentials Standards
+                Building a Privacy-Preserving Trust Ecosystem Across Multiple Domains
             </p>
         </div>
     </header>
@@ -76,10 +76,13 @@
         <div class="glass-card rounded-2xl p-8 neon-border mb-12">
             <h2 class="text-2xl font-bold text-white mb-6">Vision Statement</h2>
             <p class="text-blue-200 mb-4">
-                Our vision is to create a comprehensive trust platform that combines the privacy benefits of Zero-Knowledge Proofs with the standardization and interoperability of Verifiable Credentials. This roadmap outlines our incremental approach to building a system where individuals can selectively prove aspects of their credentials without revealing the underlying data, while organizations can verify these claims with cryptographic certainty.
+                Our vision is to create a comprehensive trust platform that combines the privacy benefits of Zero-Knowledge Proofs with the standardization and interoperability of Verifiable Credentials across multiple domains. This roadmap outlines our incremental approach to building a system where individuals can selectively prove aspects of their credentials without revealing the underlying data, while organizations can verify these claims with cryptographic certainty.
+            </p>
+            <p class="text-blue-200 mb-4">
+                We begin with foundational ZKP concepts and progressively expand to more complex scenarios—from employment verification to dating safety, healthcare privacy, and ultimately a comprehensive Trust Bureau that brokers trust exchanges across all aspects of digital life.
             </p>
             <p class="text-blue-200">
-                Each phase builds upon the previous one, delivering immediate value while laying the foundation for more advanced capabilities. This approach ensures stakeholders realize benefits at every stage while progressing toward a complete privacy-preserving credential ecosystem.
+                Each phase builds upon the previous one, delivering immediate value while laying the foundation for more advanced capabilities. This approach ensures stakeholders realize benefits at every stage while progressing toward a complete privacy-preserving credential ecosystem that spans personal, professional, and institutional contexts.
             </p>
         </div>
 
@@ -182,32 +185,32 @@
                 <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -top-2"></div>
                 <div class="phase-card glass-card rounded-2xl p-8 neon-border max-w-4xl mx-auto">
                     <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm inline-block mb-4">
-                        Phase 3: ZKP Integration
+                        Phase 3: Peer-to-Peer Dating Application
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Full Privacy Preservation</h3>
+                    <h3 class="text-2xl font-bold text-white mb-4">Trust in Personal Relationships</h3>
                     <p class="text-blue-200 mb-6">
-                        Combine Verifiable Credentials with Zero-Knowledge Proofs to enable complex predicate proofs about credential attributes without revealing any values.
+                        Apply ZKP and DID verification to a peer-to-peer dating application where users can verify important safety information without compromising privacy.
                     </p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div class="bg-white/5 rounded-lg p-4">
                             <h4 class="font-bold text-neon-blue mb-2">Key Components</h4>
                             <ul class="list-disc list-inside text-blue-200 space-y-2">
-                                <li>ZKP circuit templates for common credential proofs</li>
-                                <li>Credential-to-ZKP conversion layer</li>
-                                <li>Advanced verification portal with ZKP support</li>
-                                <li>Proof request specification language</li>
-                                <li>Performance optimizations for mobile devices</li>
+                                <li>Peer-to-peer verification protocol</li>
+                                <li>Time-bound credential verification (last 30 days)</li>
+                                <li>Background check ZKP circuits</li>
+                                <li>Residency verification without address disclosure</li>
+                                <li>Mobile-optimized proof generation</li>
                             </ul>
                         </div>
                         <div class="bg-white/5 rounded-lg p-4">
                             <h4 class="font-bold text-neon-blue mb-2">Value Proposition</h4>
                             <ul class="list-disc list-inside text-blue-200 space-y-2">
-                                <li>Complete privacy preservation for credential holders</li>
-                                <li>Support for complex eligibility rules and predicates</li>
-                                <li>Cryptographic guarantees for verification results</li>
-                                <li>Elimination of data silos and centralized verification</li>
-                                <li>Reduced discrimination risk in verification processes</li>
+                                <li>Enhanced safety in online dating</li>
+                                <li>Mutual verification without privacy compromise</li>
+                                <li>Reduced fraud and misrepresentation</li>
+                                <li>Disintermediation of verification services</li>
+                                <li>User control over personal information</li>
                             </ul>
                         </div>
                     </div>
@@ -215,7 +218,7 @@
                     <div class="bg-blue-900/30 rounded-lg p-4">
                         <h4 class="font-bold text-white mb-2">Implementation Example</h4>
                         <p class="text-blue-200 mb-2">
-                            An applicant can now generate zero-knowledge proofs directly from their verifiable credentials. For example, they can prove "My TruaScore is at least 50 points above the required minimum AND I have no felony convictions in the past 7 years" without revealing their actual TruaScore or any details about their background check.
+                            In a dating application, users can request and provide zero-knowledge proofs to verify that a background check was completed in the last 30 days, that they are not registered as a sex offender, or that they are a verified resident of a particular state—all without revealing personal details. This creates a safer environment while preserving privacy and allowing users to control their information.
                         </p>
                     </div>
                 </div>
@@ -226,32 +229,32 @@
                 <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -top-2"></div>
                 <div class="phase-card glass-card rounded-2xl p-8 neon-border max-w-4xl mx-auto">
                     <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm inline-block mb-4">
-                        Phase 4: Credential Ecosystem
+                        Phase 4: Healthcare Privacy Framework
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Interoperable Trust Network</h3>
+                    <h3 class="text-2xl font-bold text-white mb-4">Secure Health Information Exchange</h3>
                     <p class="text-blue-200 mb-6">
-                        Expand the system into a complete ecosystem with multiple credential issuers, standardized schemas, and cross-domain verification capabilities.
+                        Apply ZKP and verifiable credentials to healthcare scenarios, enabling secure sharing of sensitive medical information while maintaining patient privacy and regulatory compliance.
                     </p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div class="bg-white/5 rounded-lg p-4">
                             <h4 class="font-bold text-neon-blue mb-2">Key Components</h4>
                             <ul class="list-disc list-inside text-blue-200 space-y-2">
-                                <li>Credential exchange protocol</li>
-                                <li>Trust registry for issuers and verifiers</li>
-                                <li>Industry-specific credential schemas</li>
-                                <li>Governance framework for ecosystem participants</li>
-                                <li>Cross-platform integration capabilities</li>
+                                <li>HIPAA-compliant credential schemas</li>
+                                <li>Medical record ZKP circuits</li>
+                                <li>Insurance verification framework</li>
+                                <li>Clinical trial eligibility verification</li>
+                                <li>Secure provider-to-provider information exchange</li>
                             </ul>
                         </div>
                         <div class="bg-white/5 rounded-lg p-4">
                             <h4 class="font-bold text-neon-blue mb-2">Value Proposition</h4>
                             <ul class="list-disc list-inside text-blue-200 space-y-2">
-                                <li>Network effects from ecosystem growth</li>
-                                <li>Reduced verification costs across organizations</li>
-                                <li>Streamlined onboarding for new participants</li>
-                                <li>Cross-domain credential verification</li>
-                                <li>Standardized trust infrastructure across industries</li>
+                                <li>Enhanced patient privacy protection</li>
+                                <li>Reduced administrative overhead</li>
+                                <li>Streamlined insurance verification</li>
+                                <li>Secure sharing of medical history across providers</li>
+                                <li>Improved clinical trial recruitment</li>
                             </ul>
                         </div>
                     </div>
@@ -259,7 +262,7 @@
                     <div class="bg-blue-900/30 rounded-lg p-4">
                         <h4 class="font-bold text-white mb-2">Implementation Example</h4>
                         <p class="text-blue-200 mb-2">
-                            A job applicant can now use credentials from multiple sources (education institutions, previous employers, certification bodies, background check providers) to generate comprehensive zero-knowledge proofs of eligibility for positions across different industries. Employers benefit from standardized verification processes that work across their entire applicant pool.
+                            A patient can prove they meet eligibility criteria for a clinical trial without revealing their complete medical history. They can verify insurance coverage to healthcare providers without exposing sensitive personal information. Doctors can confirm a patient's medication history or allergies without accessing their entire medical record. All of these scenarios maintain regulatory compliance while dramatically improving privacy and security in healthcare information exchange.
                         </p>
                     </div>
                 </div>
@@ -270,32 +273,32 @@
                 <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -top-2"></div>
                 <div class="phase-card glass-card rounded-2xl p-8 neon-border max-w-4xl mx-auto">
                     <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm inline-block mb-4">
-                        Phase 5: Advanced Applications
+                        Phase 5: Trust Bureau
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Beyond Verification</h3>
+                    <h3 class="text-2xl font-bold text-white mb-4">Brokering Trust at Scale</h3>
                     <p class="text-blue-200 mb-6">
-                        Leverage the established credential ecosystem for advanced applications beyond simple verification, including reputation systems, continuous monitoring, and AI-enhanced matching.
+                        Establish a Trust Bureau that facilitates secure, privacy-preserving trust exchanges between consumers and businesses across multiple domains and use cases.
                     </p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div class="bg-white/5 rounded-lg p-4">
                             <h4 class="font-bold text-neon-blue mb-2">Key Components</h4>
                             <ul class="list-disc list-inside text-blue-200 space-y-2">
-                                <li>Privacy-preserving reputation system</li>
-                                <li>Continuous credential monitoring framework</li>
-                                <li>AI-powered job matching with ZKP verification</li>
-                                <li>Decentralized governance mechanisms</li>
-                                <li>Cross-chain credential anchoring</li>
+                                <li>Multi-domain credential orchestration</li>
+                                <li>Trust scoring and reputation framework</li>
+                                <li>Automated compliance verification</li>
+                                <li>Cross-industry credential exchange protocols</li>
+                                <li>Decentralized governance and revenue models</li>
                             </ul>
                         </div>
                         <div class="bg-white/5 rounded-lg p-4">
                             <h4 class="font-bold text-neon-blue mb-2">Value Proposition</h4>
                             <ul class="list-disc list-inside text-blue-200 space-y-2">
-                                <li>Proactive compliance monitoring without privacy loss</li>
-                                <li>Enhanced matching efficiency for employers and applicants</li>
-                                <li>Reduced friction in labor market mobility</li>
-                                <li>Support for new business models and applications</li>
-                                <li>Resilient, decentralized trust infrastructure</li>
+                                <li>Unified trust infrastructure across industries</li>
+                                <li>Reduced verification costs for businesses</li>
+                                <li>Consumer control over personal data</li>
+                                <li>Streamlined compliance for regulated industries</li>
+                                <li>New business models based on privacy-preserving verification</li>
                             </ul>
                         </div>
                     </div>
@@ -303,7 +306,7 @@
                     <div class="bg-blue-900/30 rounded-lg p-4">
                         <h4 class="font-bold text-white mb-2">Implementation Example</h4>
                         <p class="text-blue-200 mb-2">
-                            The system now enables privacy-preserving talent marketplaces where AI algorithms can match candidates to positions based on verified credentials without either party revealing sensitive information. Employers can specify complex requirements, and candidates can be automatically matched and verified without manual application processes.
+                            The Trust Bureau enables consumers to selectively share verified credentials across multiple domains—from employment and dating to healthcare and financial services—all while maintaining privacy and control. A consumer can prove their identity, income, and residency to a mortgage provider; their background check status to a dating platform; and their insurance coverage to a healthcare provider—all through a single interface with zero-knowledge proofs ensuring that only the minimum necessary information is disclosed in each context.
                         </p>
                     </div>
                 </div>
@@ -320,34 +323,34 @@
                         <li>Mobile-first development approach</li>
                         <li>Cross-platform compatibility</li>
                         <li>Performance optimization for ZKP generation</li>
-                        <li>Scalable infrastructure design</li>
-                        <li>Security-focused development practices</li>
+                        <li>Domain-specific ZKP circuit libraries</li>
+                        <li>Secure peer-to-peer communication protocols</li>
                     </ul>
                 </div>
                 <div class="bg-white/5 rounded-lg p-4">
                     <h4 class="font-bold text-neon-blue mb-2">Adoption Strategy</h4>
                     <ul class="list-disc list-inside text-blue-200 space-y-2">
-                        <li>Industry-specific pilot programs</li>
-                        <li>Integration with existing HR systems</li>
-                        <li>Educational resources for all stakeholders</li>
+                        <li>Domain-specific pilot programs</li>
+                        <li>Integration with existing systems</li>
+                        <li>User-friendly credential management</li>
                         <li>Open standards participation</li>
-                        <li>Developer ecosystem cultivation</li>
+                        <li>Cross-industry partnerships</li>
                     </ul>
                 </div>
                 <div class="bg-white/5 rounded-lg p-4">
                     <h4 class="font-bold text-neon-blue mb-2">Regulatory Alignment</h4>
                     <ul class="list-disc list-inside text-blue-200 space-y-2">
                         <li>Privacy regulation compliance by design</li>
-                        <li>Industry-specific regulatory frameworks</li>
+                        <li>Domain-specific regulatory frameworks (HIPAA, etc.)</li>
                         <li>Transparent governance processes</li>
-                        <li>Ethical AI principles for matching systems</li>
-                        <li>Regular compliance audits and reporting</li>
+                        <li>Data minimization principles</li>
+                        <li>Cross-border data protection considerations</li>
                     </ul>
                 </div>
             </div>
             
             <p class="text-blue-200">
-                This roadmap represents a strategic approach to building a comprehensive verifiable credentials ecosystem that preserves privacy through zero-knowledge proofs. Each phase delivers immediate value while building toward the complete vision, allowing for iterative development and adoption.
+                This roadmap represents a strategic approach to building a comprehensive trust infrastructure that spans multiple domains—from employment and dating to healthcare and beyond. By leveraging zero-knowledge proofs and verifiable credentials, we can create a privacy-preserving ecosystem that enables secure trust exchanges while giving individuals control over their personal information. Each phase delivers immediate value while building toward the complete vision, allowing for iterative development and adoption across different sectors.
             </p>
         </div>
     </main>
@@ -355,9 +358,10 @@
     <footer class="py-8 text-center text-blue-400 text-sm">
         <div class="flex justify-center space-x-6 my-4">
             <a href="index.html" class="text-neon-blue hover:text-white transition-colors">Home</a>
-            <a href="roadmap.html" class="text-neon-blue hover:text-white transition-colors">Verifiable Credentials Roadmap</a>
+            <a href="roadmap.html" class="text-neon-blue hover:text-white transition-colors">Trust Infrastructure Roadmap</a>
+            <a href="did-progression.html" class="text-neon-blue hover:text-white transition-colors">DID Implementation Steps</a>
         </div>
-        <p>© 2025 Trua Technologies | Privacy-Preserving Trust Infrastructure</p>
+        <p>© 2025 Trua Technologies | Privacy-Preserving Trust Infrastructure Across Multiple Domains</p>
     </footer>
 
     <script>
