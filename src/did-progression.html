@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DID & Verifiable Credentials Implementation Progression</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0b1e;
+            --card-bg: #12152e;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: #e0e0ff;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glass-card {
+            background-color: rgba(18, 21, 46, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+        
+        .bg-neon-gradient {
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .text-neon-blue {
+            color: var(--neon-blue);
+        }
+        
+        .step-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+        }
+        
+        .code-block {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            color: #e0e0ff;
+        }
+        
+        .code-comment {
+            color: #6b7280;
+        }
+        
+        .code-keyword {
+            color: #93c5fd;
+        }
+        
+        .code-string {
+            color: #fbbf24;
+        }
+        
+        .code-function {
+            color: #34d399;
+        }
+        
+        .code-property {
+            color: #f472b6;
+        }
+        
+        .progress-bar {
+            height: 0.5rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 1rem;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <header class="py-6">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent text-center">
+                DID & Verifiable Credentials Implementation
+            </h1>
+            <p class="text-center text-blue-300 mt-2">
+                Step-by-Step Progression for Implementing DIDs in the ZKP Job Application POC
+            </p>
+            <div class="flex justify-center space-x-6 mt-6">
+                <a href="index.html" class="text-neon-blue hover:text-white transition-colors">Home</a>
+                <a href="roadmap.html" class="text-neon-blue hover:text-white transition-colors">Roadmap</a>
+                <a href="did-progression.html" class="text-neon-blue hover:text-white transition-colors">DID Implementation Steps</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="glass-card rounded-2xl p-8 neon-border mb-12">
+            <h2 class="text-2xl font-bold text-white mb-6">Implementation Progression</h2>
+            <p class="text-blue-200 mb-4">
+                This page demonstrates the step-by-step progression for implementing Decentralized Identifiers (DIDs) and Verifiable Credentials in our Zero-Knowledge Proof job application system. Each step builds upon the previous one, allowing for incremental adoption and value delivery.
+            </p>
+            <p class="text-blue-200 mb-4">
+                The implementation follows the W3C standards for DIDs and Verifiable Credentials, ensuring interoperability with other systems and future-proofing the application.
+            </p>
+            <div class="bg-blue-900/30 rounded-lg p-4 mb-4">
+                <p class="text-yellow-300 font-bold">⚠️ Note:</p>
+                <p class="text-blue-200">
+                    The percentage indicators (20%, 40%, 60%, 80%, 100%) represent the conceptual progression through the DID implementation steps in the application, not actual implementation progress. They illustrate the logical sequence of building a complete DID-based identity system.
+                </p>
+            </div>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4 mb-4">
+                <p class="text-yellow-300 font-bold">🔒 Security & Trust:</p>
+                <p class="text-blue-200">
+                    All credentials, proofs, and job postings in this system include expiration dates and status mechanisms to ensure security and maintain trust. Expiry prevents misuse of stale data, reinforces attribution to trusted sources (Trua Trust Bureau or employers), and aligns with W3C standards. The system supports real-time revocation checks without exposing sensitive data, further enhancing privacy and security.
+                </p>
+            </div>
+        </div>
+
+        <!-- Step 1: DID Implementation -->
+        <div class="step-card glass-card rounded-2xl p-8 neon-border mb-12">
+            <div class="flex items-center mb-6">
+                <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm">
+                    Step 1
+                </div>
+                <h3 class="text-2xl font-bold text-white ml-4">DID Implementation</h3>
+            </div>
+            
+            <div class="mb-6">
+                <div class="w-full bg-white/10 rounded-full h-2">
+                    <div class="progress-bar" style="width: 20%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-blue-300 mt-1">
+                    <span>Start</span>
+                    <span>20% Complete</span>
+                    <span>Complete</span>
+                </div>
+            </div>
+            
+            <p class="text-blue-200 mb-6">
+                The first step is to implement Decentralized Identifiers (DIDs) for both employers and applicants. DIDs provide a way to identify entities without relying on a centralized authority, enabling self-sovereign identity.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Implementation Details</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-3">
+                        <li>Add DID fields to Applicant and Employer models</li>
+                        <li>Implement DID generation and validation</li>
+                        <li>Create endpoints for DID resolution</li>
+                        <li>Update the UI to display DIDs</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Current Status</h4>
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <p class="text-green-400 font-bold">✅ Implemented</p>
+                        <p class="text-blue-200 mt-2">
+                            DID support has been added to the backend models and controllers. The system now supports did:web and did:key methods, with proper validation and resolution.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="font-bold text-neon-blue mb-4">Standard Example: Employer DID Document</h4>
+                <div class="code-block">
+<pre><span class="code-comment">// W3C Decentralized Identifier (DID) Document for Employer</span>
+{
+  <span class="code-property">"@context"</span>: [
+    <span class="code-string">"https://www.w3.org/ns/did/v1"</span>,
+    <span class="code-string">"https://w3id.org/security/suites/ed25519-2020/v1"</span>
+  ],
+  <span class="code-property">"id"</span>: <span class="code-string">"did:web:example.com:employer:456"</span>,
+  <span class="code-property">"controller"</span>: <span class="code-string">"did:web:example.com:employer:456"</span>,
+  <span class="code-property">"verificationMethod"</span>: [
+    {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:web:example.com:employer:456#key-1"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"Ed25519VerificationKey2020"</span>,
+      <span class="code-property">"controller"</span>: <span class="code-string">"did:web:example.com:employer:456"</span>,
+      <span class="code-property">"publicKeyMultibase"</span>: <span class="code-string">"z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK"</span>
+    }
+  ],
+  <span class="code-property">"authentication"</span>: [
+    <span class="code-string">"did:web:example.com:employer:456#key-1"</span>
+  ],
+  <span class="code-property">"assertionMethod"</span>: [
+    <span class="code-string">"did:web:example.com:employer:456#key-1"</span>
+  ],
+  <span class="code-property">"service"</span>: [
+    {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:web:example.com:employer:456#jobs"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"JobPostingService"</span>,
+      <span class="code-property">"serviceEndpoint"</span>: <span class="code-string">"https://example.com/employers/456/jobs"</span>
+    },
+    {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:web:example.com:employer:456#profile"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"OrganizationProfile"</span>,
+      <span class="code-property">"serviceEndpoint"</span>: <span class="code-string">"https://example.com/employers/456/profile"</span>
+    },
+    {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:web:example.com:employer:456#status"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"DIDStatus"</span>,
+      <span class="code-property">"serviceEndpoint"</span>: <span class="code-string">"https://example.com/did/status/employer/456"</span>,
+      <span class="code-property">"description"</span>: <span class="code-string">"Endpoint for checking the status (active/revoked) of this DID"</span>
+    }
+  ]
+}</pre>
+                </div>
+            </div>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4">
+                <h4 class="font-bold text-white mb-2">Demo Scenario</h4>
+                <p class="text-blue-200">
+                    In this step, both employers and applicants are assigned DIDs when they register. These DIDs serve as their unique identifiers in the system. The employer DIDs (as shown in the example above) are particularly important as they will be used to cryptographically sign job postings in Step 2, establishing verifiable trust in the job listings.
+                </p>
+            </div>
+        </div>
+
+        <!-- Step 2: Job Listing Verification through Employer DIDs -->
+        <div class="step-card glass-card rounded-2xl p-8 neon-border mb-12">
+            <div class="flex items-center mb-6">
+                <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm">
+                    Step 2
+                </div>
+                <h3 class="text-2xl font-bold text-white ml-4">Job Listing Verification through Employer DIDs</h3>
+            </div>
+            
+            <div class="mb-6">
+                <div class="w-full bg-white/10 rounded-full h-2">
+                    <div class="progress-bar" style="width: 40%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-blue-300 mt-1">
+                    <span>Start</span>
+                    <span>40% Complete</span>
+                    <span>Complete</span>
+                </div>
+            </div>
+            
+            <p class="text-blue-200 mb-6">
+                The second step is to establish verifiable job listings through employer DIDs. This ensures that job postings are legitimately offered by the companies they claim to represent, eliminating the need for trusted intermediaries and ensuring applicants can trust the listed qualifications.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Implementation Details</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-3">
+                        <li>Link job listings to employer DIDs</li>
+                        <li>Implement cryptographic signing of job postings</li>
+                        <li>Create verification mechanisms for job authenticity</li>
+                        <li>Update UI to display verification status of jobs</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Current Status</h4>
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <p class="text-green-400 font-bold">✅ Implemented</p>
+                        <p class="text-blue-200 mt-2">
+                            Job listings are now cryptographically linked to employer DIDs, with signature generation and verification implemented. This allows applicants to verify that jobs are legitimately posted by the claimed companies without relying on a trusted job board.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="font-bold text-neon-blue mb-4">Standard Example: Signed Job Posting</h4>
+                <div class="code-block">
+<pre><span class="code-comment">// Signed Job Posting using DID</span>
+{
+  <span class="code-property">"@context"</span>: [
+    <span class="code-string">"https://www.w3.org/ns/did/v1"</span>,
+    <span class="code-string">"https://schema.org"</span>
+  ],
+  <span class="code-property">"id"</span>: <span class="code-string">"https://example.com/jobs/123"</span>,
+  <span class="code-property">"type"</span>: <span class="code-string">"JobPosting"</span>,
+  <span class="code-property">"issuer"</span>: <span class="code-string">"did:web:example.com:employer:456"</span>,
+  <span class="code-property">"issuanceDate"</span>: <span class="code-string">"2025-07-30T12:00:00Z"</span>,
+  <span class="code-property">"expirationDate"</span>: <span class="code-string">"2025-08-30T12:00:00Z"</span>,
+  <span class="code-property">"jobTitle"</span>: <span class="code-string">"Senior Blockchain Developer"</span>,
+  <span class="code-property">"hiringOrganization"</span>: {
+    <span class="code-property">"@type"</span>: <span class="code-string">"Organization"</span>,
+    <span class="code-property">"name"</span>: <span class="code-string">"CryptoTech Solutions"</span>
+  },
+  <span class="code-property">"jobLocation"</span>: {
+    <span class="code-property">"@type"</span>: <span class="code-string">"Place"</span>,
+    <span class="code-property">"address"</span>: <span class="code-string">"Remote"</span>
+  },
+  <span class="code-property">"requirements"</span>: {
+    <span class="code-property">"eligibilityVerifier"</span>: <span class="code-string">"did:web:trua.example.com:trustbureau"</span>,
+    <span class="code-property">"eligibilityPolicy"</span>: <span class="code-string">"https://trua.example.com/policies/senior-blockchain-developer"</span>
+  },
+  <span class="code-property">"proof"</span>: {
+    <span class="code-property">"type"</span>: <span class="code-string">"Ed25519Signature2020"</span>,
+    <span class="code-property">"created"</span>: <span class="code-string">"2025-07-30T12:00:00Z"</span>,
+    <span class="code-property">"verificationMethod"</span>: <span class="code-string">"did:web:example.com:employer:456#key-1"</span>,
+    <span class="code-property">"proofPurpose"</span>: <span class="code-string">"assertionMethod"</span>,
+    <span class="code-property">"proofValue"</span>: <span class="code-string">"z3MvFTgxrXoJ5...truncated...4V1QEXaQZ"</span>
+  }
+}</pre>
+                </div>
+            </div>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4">
+                <h4 class="font-bold text-white mb-2">Demo Scenario</h4>
+                <p class="text-blue-200">
+                    In this step, when an employer posts a job, the listing is cryptographically signed using their DID. Applicants can verify the authenticity of the job posting and trust that the qualifications and requirements are legitimately set by the employer. This eliminates the need for a trusted intermediary job board and ensures that applicants know they are applying to legitimate opportunities.
+                </p>
+            </div>
+        </div>
+
+        <!-- Step 3: Verifiable Credentials Implementation -->
+        <div class="step-card glass-card rounded-2xl p-8 neon-border mb-12">
+            <div class="flex items-center mb-6">
+                <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm">
+                    Step 3
+                </div>
+                <h3 class="text-2xl font-bold text-white ml-4">Verifiable Credentials Implementation</h3>
+            </div>
+            
+            <div class="mb-6">
+                <div class="w-full bg-white/10 rounded-full h-2">
+                    <div class="progress-bar" style="width: 60%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-blue-300 mt-1">
+                    <span>Start</span>
+                    <span>60% Complete</span>
+                    <span>Complete</span>
+                </div>
+            </div>
+            
+            <p class="text-blue-200 mb-6">
+                The third step is to implement W3C Verifiable Credentials for storing and sharing claims about applicants. These credentials are cryptographically verifiable and can be used to prove qualifications without revealing the underlying data.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Implementation Details</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-3">
+                        <li>Add verifiable credential structures to models</li>
+                        <li>Implement credential issuance endpoints</li>
+                        <li>Create credential verification logic</li>
+                        <li>Add credential management UI</li>
+                        <li class="font-semibold text-neon-blue">Integration of DIDKit for Interoperability:</li>
+                        <ul class="list-disc list-inside ml-6 text-blue-200 space-y-2 mt-2">
+                            <li>Use DIDKit to issue and verify Verifiable Credentials, ensuring compatibility with external systems</li>
+                            <li>Support multiple DID methods (did:web, did:key) per W3C standards</li>
+                            <li>Leverage DIDKit's support for Ed25519Signature2020 to align with current proof types</li>
+                            <li>Prepare for BBS+ signatures to enable selective disclosure in Step 5</li>
+                        </ul>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Current Status</h4>
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <p class="text-green-400 font-bold">✅ Implemented</p>
+                        <p class="text-blue-200 mt-2">
+                            Verifiable Credentials support has been added to the backend using DIDKit for interoperability. The system now supports issuing, storing, and verifying credentials with cryptographic proofs across multiple DID methods (did:web, did:key) and proof types (Ed25519Signature2020), with preparation for BBS+ signatures to enable future selective disclosure capabilities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="font-bold text-neon-blue mb-4">Standard Example: W3C Verifiable Credential</h4>
+                <div class="bg-blue-900/30 rounded-lg p-4 mb-4">
+                    <p class="text-yellow-300 font-bold">🔒 Trua Trust Architecture:</p>
+                    <p class="text-blue-200">
+                        In our system, the applicant has a DID in their wallet that references a token. The actual private data shown below is securely held by the Trua Trust Bureau (third-party verifier), not in the applicant's wallet. The ZKP process allows the applicant to prove eligibility without the employer or applicant ever seeing the actual data. Trua acts as the trusted source of truth in this architecture.
+                    </p>
+                </div>
+                <div class="code-block">
+<pre><span class="code-comment">// W3C Verifiable Credential (stored by Trua Trust Bureau)</span>
+{
+  <span class="code-property">"@context"</span>: [
+    <span class="code-string">"https://www.w3.org/2018/credentials/v1"</span>,
+    <span class="code-string">"https://www.w3.org/2018/credentials/examples/v1"</span>,
+    <span class="code-string">"https://trua.example.com/contexts/v1"</span>
+  ],
+  <span class="code-property">"id"</span>: <span class="code-string">"http://trua.example.com/credentials/3732"</span>,
+  <span class="code-property">"type"</span>: [<span class="code-string">"VerifiableCredential"</span>, <span class="code-string">"TruaBackgroundCheckCredential"</span>],
+  <span class="code-property">"issuer"</span>: <span class="code-string">"did:web:trua.example.com:trustbureau"</span>,
+  <span class="code-property">"issuanceDate"</span>: <span class="code-string">"2025-07-01T19:23:24Z"</span>,
+  <span class="code-property">"expirationDate"</span>: <span class="code-string">"2026-07-01T19:23:24Z"</span>,
+  <span class="code-property">"credentialStatus"</span>: {
+    <span class="code-property">"id"</span>: <span class="code-string">"https://trua.example.com/status/3732"</span>,
+    <span class="code-property">"type"</span>: <span class="code-string">"CredentialStatusList2021"</span>
+  },
+  <span class="code-property">"credentialSubject"</span>: {
+    <span class="code-property">"id"</span>: <span class="code-string">"did:web:example.com:applicant:123"</span>,
+    <span class="code-property">"backgroundCheckId"</span>: <span class="code-string">"trua:background:check:98765"</span>,
+    <span class="code-property">"verificationDate"</span>: <span class="code-string">"2025-06-30T00:00:00Z"</span>,
+    <span class="code-comment">// Note: The actual background check data (truaScore, felony, dui, etc.)
+    // is stored securely in Trua's internal systems and is never directly
+    // exposed in the credential. Instead, ZKPs are used to prove statements
+    // about this data without revealing it.</span>
+  },
+  <span class="code-property">"proof"</span>: {
+    <span class="code-property">"type"</span>: <span class="code-string">"Ed25519Signature2020"</span>,
+    <span class="code-property">"created"</span>: <span class="code-string">"2025-07-01T19:23:24Z"</span>,
+    <span class="code-property">"verificationMethod"</span>: <span class="code-string">"did:web:trua.example.com:trustbureau#key-1"</span>,
+    <span class="code-property">"proofPurpose"</span>: <span class="code-string">"assertionMethod"</span>,
+    <span class="code-property">"proofValue"</span>: <span class="code-string">"z58DAdFfa9SkqZMVPxAQpic6FPCsYh5U...truncated...fMMfGdPpnXU"</span>
+  }
+}</pre>
+                </div>
+            </div>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4">
+                <h4 class="font-bold text-white mb-2">Demo Scenario</h4>
+                <p class="text-blue-200">
+                    In this step, employers can issue verifiable credentials to applicants, such as employment verification or background check results. These credentials are cryptographically signed using the employer's DID and can be verified by other parties without contacting the original issuer. With DIDKit integration, these credentials are fully interoperable with external identity systems and wallets that support W3C standards, allowing applicants to use their credentials across different platforms and services.
+                </p>
+            </div>
+        </div>
+
+        <!-- Step 4: ZKP Integration with Verifiable Credentials -->
+        <div class="step-card glass-card rounded-2xl p-8 neon-border mb-12">
+            <div class="flex items-center mb-6">
+                <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm">
+                    Step 4
+                </div>
+                <h3 class="text-2xl font-bold text-white ml-4">ZKP Integration with Verifiable Credentials</h3>
+            </div>
+            
+            <div class="mb-6">
+                <div class="w-full bg-white/10 rounded-full h-2">
+                    <div class="progress-bar" style="width: 80%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-blue-300 mt-1">
+                    <span>Start</span>
+                    <span>80% Complete</span>
+                    <span>Complete</span>
+                </div>
+            </div>
+            
+            <p class="text-blue-200 mb-6">
+                The fourth step is to integrate Zero-Knowledge Proofs with Verifiable Credentials, allowing applicants to prove claims from their credentials without revealing the actual data.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Implementation Details</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-3">
+                        <li>Update ZKP circuits to work with credential data</li>
+                        <li>Implement credential-based proof generation</li>
+                        <li>Create verification logic for credential-based proofs</li>
+                        <li>Update the UI to support credential-based proofs</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Current Status</h4>
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <p class="text-yellow-400 font-bold">🔄 In Progress</p>
+                        <p class="text-blue-200 mt-2">
+                            The backend infrastructure is in place, but the ZKP circuits need to be updated to work directly with credential data. This is the current focus of development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="font-bold text-neon-blue mb-4">Standard Example: ZKP with Trua Trust Bureau</h4>
+                <div class="bg-blue-900/30 rounded-lg p-4 mb-4">
+                    <p class="text-yellow-300 font-bold">🔒 Trua Trust Bureau ZKP Flow:</p>
+                    <p class="text-blue-200">
+                        In our architecture, the ZKP process works as follows:
+                        <ol class="list-decimal list-inside mt-2 space-y-1">
+                            <li>Applicant authorizes Trua to generate a ZKP for a specific job application</li>
+                            <li>Trua Trust Bureau holds the private data and generates the ZKP</li>
+                            <li>The ZKP proves the applicant meets requirements without revealing actual data</li>
+                            <li>Neither the employer nor the applicant ever sees the underlying private data</li>
+                            <li>Trua acts as the trusted source of truth throughout the process</li>
+                        </ol>
+                    </p>
+                </div>
+                <div class="code-block">
+<pre><span class="code-comment">// Zero-Knowledge Proof Presentation (what employers receive)</span>
+{
+  <span class="code-property">"@context"</span>: [
+    <span class="code-string">"https://www.w3.org/2018/credentials/v1"</span>,
+    <span class="code-string">"https://trua.example.com/contexts/v1"</span>
+  ],
+  <span class="code-property">"id"</span>: <span class="code-string">"urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5"</span>,
+  <span class="code-property">"type"</span>: [<span class="code-string">"VerifiablePresentation"</span>, <span class="code-string">"TruaZKPPresentation"</span>],
+  <span class="code-property">"holder"</span>: <span class="code-string">"did:web:example.com:applicant:123"</span>,
+  <span class="code-property">"verifiableCredential"</span>: {
+    <span class="code-property">"@context"</span>: [
+      <span class="code-string">"https://www.w3.org/2018/credentials/v1"</span>,
+      <span class="code-string">"https://trua.example.com/contexts/v1"</span>
+    ],
+    <span class="code-property">"id"</span>: <span class="code-string">"https://trua.example.com/zkp-proofs/4912"</span>,
+    <span class="code-property">"type"</span>: [<span class="code-string">"VerifiableCredential"</span>, <span class="code-string">"TruaEligibilityProof"</span>],
+    <span class="code-property">"issuer"</span>: <span class="code-string">"did:web:trua.example.com:trustbureau"</span>,
+    <span class="code-property">"issuanceDate"</span>: <span class="code-string">"2025-07-01T19:23:24Z"</span>,
+    <span class="code-property">"expirationDate"</span>: <span class="code-string">"2025-07-02T19:23:24Z"</span>,
+    <span class="code-property">"credentialSubject"</span>: {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:web:example.com:applicant:123"</span>,
+      <span class="code-property">"jobPosting"</span>: <span class="code-string">"https://example.com/jobs/123"</span>,
+      <span class="code-property">"eligibilityRequirements"</span>: {
+        <span class="code-property">"policyId"</span>: <span class="code-string">"trua:policy:senior-blockchain-developer:123"</span>,
+        <span class="code-property">"policyVersion"</span>: <span class="code-string">"1.0"</span>,
+        <span class="code-property">"policyIssuer"</span>: <span class="code-string">"did:web:example.com:employer:456"</span>
+      },
+      <span class="code-property">"meetsRequirements"</span>: true
+    },
+    <span class="code-property">"proof"</span>: {
+      <span class="code-property">"type"</span>: <span class="code-string">"TruaZKProof2023"</span>,
+      <span class="code-property">"created"</span>: <span class="code-string">"2025-07-01T19:23:24Z"</span>,
+      <span class="code-property">"proofPurpose"</span>: <span class="code-string">"assertionMethod"</span>,
+      <span class="code-property">"verificationMethod"</span>: <span class="code-string">"did:web:trua.example.com:trustbureau#zkp-key-1"</span>,
+      <span class="code-property">"trustedDataSource"</span>: <span class="code-string">"did:web:trua.example.com:trustbureau"</span>,
+      <span class="code-property">"circuit"</span>: <span class="code-string">"https://trua.example.com/circuits/eligibility-check.json"</span>,
+      <span class="code-property">"publicInputs"</span>: {
+        <span class="code-property">"jobRequirements"</span>: <span class="code-string">"0x7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3"</span>,
+        <span class="code-property">"applicantCommitment"</span>: <span class="code-string">"0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d"</span>
+      },
+      <span class="code-property">"proofValue"</span>: <span class="code-string">"kTTbA1xL6GmHkGpnLGk...truncated...Aqpdn6bQy=="</span>
+    }
+  },
+  <span class="code-property">"proof"</span>: {
+    <span class="code-property">"type"</span>: <span class="code-string">"Ed25519Signature2020"</span>,
+    <span class="code-property">"created"</span>: <span class="code-string">"2025-07-01T19:23:24Z"</span>,
+    <span class="code-property">"verificationMethod"</span>: <span class="code-string">"did:web:example.com:applicant:123#key-1"</span>,
+    <span class="code-property">"proofPurpose"</span>: <span class="code-string">"authentication"</span>,
+    <span class="code-property">"challenge"</span>: <span class="code-string">"1f44d55f-f161-4938-a659-f8026467f126"</span>,
+    <span class="code-property">"proofValue"</span>: <span class="code-string">"zqpLMweBrSxLwSNEzq...truncated...Aqpdn6bQy=="</span>
+  }
+}</pre>
+                </div>
+            </div>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4">
+                <h4 class="font-bold text-white mb-2">Demo Scenario</h4>
+                <p class="text-blue-200">
+                    In this step, the Trua Trust Bureau facilitates zero-knowledge proofs of eligibility for job applications. The applicant never directly accesses their sensitive background data, and instead authorizes Trua to generate proofs on their behalf.
+                </p>
+                <p class="text-blue-200 mt-2">
+                    <strong>Example Flow:</strong>
+                </p>
+                <ol class="list-decimal list-inside text-blue-200 space-y-1 ml-4">
+                    <li>Employer posts a job requiring a TruaScore of 300+ and no felony convictions</li>
+                    <li>Applicant applies and authorizes Trua to verify eligibility</li>
+                    <li>Trua Trust Bureau (which holds the applicant's actual TruaScore of 320 and background data) generates a ZKP</li>
+                    <li>The ZKP cryptographically proves "Applicant's TruaScore is ≥ 300 AND has no felony convictions"</li>
+                    <li>Employer receives proof of eligibility without seeing any actual background data</li>
+                    <li>Applicant never directly accesses or controls their sensitive background data</li>
+                    <li>Trua maintains data integrity as the trusted source of truth</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Step 5: Selective Disclosure -->
+        <div class="step-card glass-card rounded-2xl p-8 neon-border">
+            <div class="flex items-center mb-6">
+                <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm">
+                    Step 5
+                </div>
+                <h3 class="text-2xl font-bold text-white ml-4">Selective Disclosure Implementation</h3>
+            </div>
+            
+            <div class="mb-6">
+                <div class="w-full bg-white/10 rounded-full h-2">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-blue-300 mt-1">
+                    <span>Start</span>
+                    <span>100% Complete</span>
+                    <span>Complete</span>
+                </div>
+            </div>
+            
+            <p class="text-blue-200 mb-6">
+                The final step is to implement selective disclosure capabilities using BBS+ signatures, allowing credential holders to reveal only specific attributes from their credentials while still maintaining cryptographic verifiability.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Implementation Details</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-3">
+                        <li>Implement BBS+ signature support</li>
+                        <li>Create selective disclosure request protocol</li>
+                        <li>Update credential issuance to support BBS+</li>
+                        <li>Implement verification for selective disclosures</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Current Status</h4>
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <p class="text-yellow-400 font-bold">🔄 Planned</p>
+                        <p class="text-blue-200 mt-2">
+                            The backend infrastructure is in place, but BBS+ signature implementation is planned for the next phase of development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4">
+                <h4 class="font-bold text-white mb-2">Demo Scenario</h4>
+                <h4 class="font-bold text-neon-blue mb-4">Standard Example: Trua-Mediated Selective Disclosure</h4>
+                <div class="bg-blue-900/30 rounded-lg p-4 mb-4">
+                    <p class="text-yellow-300 font-bold">🔍 Trua Trust Bureau Selective Disclosure:</p>
+                    <p class="text-blue-200">
+                        In addition to ZKPs, the Trua Trust Bureau can also facilitate selective disclosure of specific attributes when appropriate. In this flow:
+                        <ol class="list-decimal list-inside mt-2 space-y-1">
+                            <li>Applicant authorizes Trua to create a selective disclosure credential</li>
+                            <li>Trua generates a credential revealing only the authorized attributes</li>
+                            <li>The credential is cryptographically verifiable without revealing additional data</li>
+                            <li>Trua remains the source of truth for the underlying data</li>
+                        </ol>
+                    </p>
+                </div>
+                <div class="code-block">
+<pre><span class="code-comment">// Trua-Mediated Selective Disclosure</span>
+{
+  <span class="code-property">"@context"</span>: [
+    <span class="code-string">"https://www.w3.org/2018/credentials/v1"</span>,
+    <span class="code-string">"https://w3id.org/security/bbs/v1"</span>,
+    <span class="code-string">"https://trua.example.com/contexts/v1"</span>
+  ],
+  <span class="code-property">"id"</span>: <span class="code-string">"https://trua.example.com/credentials/1872/disclosure/20250730"</span>,
+  <span class="code-property">"type"</span>: [
+    <span class="code-string">"VerifiableCredential"</span>,
+    <span class="code-string">"TruaBackgroundCheckCredential"</span>,
+    <span class="code-string">"SelectiveDisclosure"</span>
+  ],
+  <span class="code-property">"issuer"</span>: <span class="code-string">"did:web:trua.example.com:trustbureau"</span>,
+  <span class="code-property">"issuanceDate"</span>: <span class="code-string">"2025-07-30T12:00:00Z"</span>,
+  <span class="code-property">"expirationDate"</span>: <span class="code-string">"2025-08-30T12:00:00Z"</span>,
+  <span class="code-property">"credentialStatus"</span>: {
+    <span class="code-property">"id"</span>: <span class="code-string">"https://trua.example.com/status/1872/disclosure/20250730"</span>,
+    <span class="code-property">"type"</span>: <span class="code-string">"CredentialStatusList2021"</span>
+  },
+  <span class="code-property">"credentialSubject"</span>: {
+    <span class="code-property">"id"</span>: <span class="code-string">"did:web:example.com:applicant:123"</span>,
+    <span class="code-comment">// Only revealing employment eligibility status, not the underlying data</span>
+    <span class="code-property">"employmentEligible"</span>: true,
+    <span class="code-property">"verificationDate"</span>: <span class="code-string">"2025-06-30T00:00:00Z"</span>
+    <span class="code-comment">// Not revealing truaScore, felony, dui, or other sensitive data</span>
+  },
+  <span class="code-property">"proof"</span>: {
+    <span class="code-property">"type"</span>: <span class="code-string">"BbsBlsSignatureProof2020"</span>,
+    <span class="code-property">"created"</span>: <span class="code-string">"2025-07-30T12:00:00Z"</span>,
+    <span class="code-property">"verificationMethod"</span>: <span class="code-string">"did:web:trua.example.com:trustbureau#bbs-key-1"</span>,
+    <span class="code-property">"proofPurpose"</span>: <span class="code-string">"assertionMethod"</span>,
+    <span class="code-property">"nonce"</span>: <span class="code-string">"HwF7+5kQHiz3AJuGEYKPBw=="</span>,
+    <span class="code-property">"proofValue"</span>: <span class="code-string">"ABkB/wbvAe8FGMvjFdgZVZ6/hHRRgF+PxwHKU8BuMZ6gYKAjNrUBK/EIgPRnA...truncated...Aqpdn6bQy=="</span>
+  }
+}</pre>
+                </div>
+
+                <div class="bg-blue-900/30 rounded-lg p-4 mt-6">
+                    <h4 class="font-bold text-white mb-2">Demo Scenario</h4>
+                    <p class="text-blue-200">
+                        In this step, the Trua Trust Bureau can create selective disclosures on behalf of applicants, revealing only specific authorized attributes while maintaining data integrity.
+                    </p>
+                    <p class="text-blue-200 mt-2">
+                        <strong>Example Flow:</strong>
+                    </p>
+                    <ol class="list-decimal list-inside text-blue-200 space-y-1 ml-4">
+                        <li>Applicant needs to prove employment eligibility without revealing sensitive background details</li>
+                        <li>Applicant authorizes Trua to create a selective disclosure credential</li>
+                        <li>Trua generates a credential revealing only "employmentEligible: true" and verification date</li>
+                        <li>The credential is cryptographically verifiable as coming from Trua</li>
+                        <li>Third parties can verify the credential without contacting Trua</li>
+                        <li>The underlying sensitive data remains secure with the Trua Trust Bureau</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-8 text-center text-blue-400 text-sm">
+        <div class="flex justify-center space-x-6 mb-4">
+            <a href="index.html" class="text-neon-blue hover:text-white transition-colors">Home</a>
+            <a href="roadmap.html" class="text-neon-blue hover:text-white transition-colors">Verifiable Credentials Roadmap</a>
+            <a href="did-progression.html" class="text-neon-blue hover:text-white transition-colors">DID Implementation Steps</a>
+        </div>
+        <p>© 2025 Trua Technologies | Privacy-Preserving Trust Infrastructure</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add any interactive functionality here
+        });
+    </script>
