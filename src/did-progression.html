@@ -93,10 +93,19 @@
             <p class="text-center text-blue-300 mt-2">
                 Step-by-Step Progression for Implementing DIDs in the ZKP Job Application POC
             </p>
-            <div class="flex justify-center space-x-6 mt-6">
+            <div class="flex justify-center space-x-6 mt-4">
+                <button id="downloadPdf" class="bg-neon-gradient text-dark-bg px-4 py-2 rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+            <div class="flex justify-center space-x-6 mt-4">
                 <a href="index.html" class="text-neon-blue hover:text-white transition-colors">Home</a>
                 <a href="roadmap.html" class="text-neon-blue hover:text-white transition-colors">Roadmap</a>
                 <a href="did-progression.html" class="text-neon-blue hover:text-white transition-colors">DID Implementation Steps</a>
+                <a href="architecture.html" class="text-neon-blue hover:text-white transition-colors">System Architecture</a>
             </div>
         </div>
     </header>
@@ -558,7 +567,7 @@
         </div>
 
         <!-- Step 5: Selective Disclosure -->
-        <div class="step-card glass-card rounded-2xl p-8 neon-border">
+        <div class="step-card glass-card rounded-2xl p-8 neon-border mb-12">
             <div class="flex items-center mb-6">
                 <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm">
                     Step 5
@@ -675,6 +684,226 @@
                 </div>
             </div>
         </div>
+
+        <!-- Step 6: Hyperledger SSI Integration -->
+        <div class="step-card glass-card rounded-2xl p-8 neon-border">
+            <div class="flex items-center mb-6">
+                <div class="bg-neon-gradient text-dark-bg px-3 py-1 rounded-lg font-mono text-sm">
+                    Step 6
+                </div>
+                <h3 class="text-2xl font-bold text-white ml-4">Hyperledger SSI Integration</h3>
+            </div>
+            
+            <div class="mb-6">
+                <div class="w-full bg-white/10 rounded-full h-2">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-blue-300 mt-1">
+                    <span>Start</span>
+                    <span>Next Phase</span>
+                    <span>Complete</span>
+                </div>
+            </div>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4 mb-6">
+                <p class="text-yellow-300 font-bold">📈 Evolution Beyond Initial Progression:</p>
+                <p class="text-blue-200">
+                    While Steps 1-5 represent the complete implementation of our initial DID and Verifiable Credentials roadmap, Step 6 marks the beginning of our enterprise blockchain integration phase. This step builds upon the successful proof of concept established in the previous steps and elevates the system to a fully decentralized, interoperable trust infrastructure.
+                </p>
+            </div>
+            
+            <p class="text-blue-200 mb-6">
+                Building on the successful proof of concept established in Steps 1-5, Step 6 elevates the system to an enterprise-grade, blockchain-based trust infrastructure using Hyperledger's suite of SSI tools: Indy, Aries, and Ursa. This step directly implements the blockchain integration mentioned in the Enabling Framework of our Trust Infrastructure Roadmap.
+            </p>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4 mb-6">
+                <p class="text-yellow-300 font-bold">🔗 Alignment with Enabling Framework:</p>
+                <p class="text-blue-200">
+                    This step implements key technologies from our Enabling Framework, enhancing our existing architecture with enterprise blockchain capabilities:
+                </p>
+                <ul class="list-disc list-inside text-blue-200 space-y-1 mt-2">
+                    <li><span class="font-semibold">W3C Standards Integration:</span> Hyperledger Indy and Aries fully support W3C Verifiable Credentials and DIDs</li>
+                    <li><span class="font-semibold">DIDComm Implementation:</span> Aries provides a complete implementation of the DIDComm Messaging Protocol</li>
+                    <li><span class="font-semibold">Enhanced ZKP Support:</span> Ursa complements our Circom/SnarkJS circuits with additional cryptographic primitives</li>
+                    <li><span class="font-semibold">BBS+ Signatures:</span> Ursa provides native support for BBS+ signatures for advanced selective disclosure</li>
+                    <li><span class="font-semibold">Self-sovereign Identity Wallet:</span> Aries enables fully-featured SSI wallets with credential management</li>
+                </ul>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Implementation Details</h4>
+                    <ul class="list-disc list-inside text-blue-200 space-y-3">
+                        <li class="font-semibold text-neon-blue">Hyperledger Indy Integration:</li>
+                        <ul class="list-disc list-inside ml-6 text-blue-200 space-y-2 mt-2">
+                            <li>Migrate DIDs to Indy's permissioned ledger</li>
+                            <li>Store credential schemas and definitions on-chain</li>
+                            <li>Implement revocation registries for real-time credential status</li>
+                            <li>Support did:indy method while maintaining backward compatibility</li>
+                        </ul>
+                        <li class="font-semibold text-neon-blue">Hyperledger Aries Integration:</li>
+                        <ul class="list-disc list-inside ml-6 text-blue-200 space-y-2 mt-2">
+                            <li>Deploy Aries agents for all participants (Trua, employers, applicants)</li>
+                            <li>Implement DIDComm for secure messaging</li>
+                            <li>Support both W3C VCs and AnonCreds formats</li>
+                            <li>Enable interoperability with other Aries-compatible systems</li>
+                        </ul>
+                        <li class="font-semibold text-neon-blue">Hyperledger Ursa Integration:</li>
+                        <ul class="list-disc list-inside ml-6 text-blue-200 space-y-2 mt-2">
+                            <li>Standardize cryptographic operations using Ursa</li>
+                            <li>Enhance ZKP circuits with Ursa's cryptographic primitives</li>
+                            <li>Implement advanced BBS+ signatures for selective disclosure</li>
+                            <li>Ensure consistent security across all system components</li>
+                        </ul>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-neon-blue mb-4">Current Status</h4>
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <p class="text-yellow-400 font-bold">🔄 Planned</p>
+                        <p class="text-blue-200 mt-2">
+                            The foundation has been established in Steps 1-5, proving the concept's viability. Step 6 is planned as the next major evolution, bringing enterprise-grade blockchain capabilities to the system.
+                        </p>
+                    </div>
+                    <h4 class="font-bold text-neon-blue mb-4 mt-6">What Will Change</h4>
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <ul class="list-disc list-inside text-blue-200 space-y-2">
+                            <li><span class="font-semibold">Architecture:</span> From centralized to hybrid with blockchain for trust anchoring</li>
+                            <li><span class="font-semibold">DIDs:</span> Add did:indy method alongside did:web and did:key</li>
+                            <li><span class="font-semibold">Credentials:</span> Support both W3C VCs and AnonCreds</li>
+                            <li><span class="font-semibold">Verification:</span> Enable on-ledger verification without contacting issuers</li>
+                            <li><span class="font-semibold">Ecosystem:</span> Interoperate with other Hyperledger-based identity networks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="font-bold text-neon-blue mb-4">Standard Example: Hyperledger Indy DID Document</h4>
+                <div class="code-block">
+<pre><span class="code-comment">// Hyperledger Indy DID Document</span>
+{
+  <span class="code-property">"@context"</span>: [
+    <span class="code-string">"https://www.w3.org/ns/did/v1"</span>,
+    <span class="code-string">"https://w3id.org/security/suites/ed25519-2020/v1"</span>
+  ],
+  <span class="code-property">"id"</span>: <span class="code-string">"did:indy:sovrin:XYZ123"</span>,
+  <span class="code-property">"controller"</span>: <span class="code-string">"did:indy:sovrin:XYZ123"</span>,
+  <span class="code-property">"verificationMethod"</span>: [
+    {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:indy:sovrin:XYZ123#key-1"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"Ed25519VerificationKey2020"</span>,
+      <span class="code-property">"controller"</span>: <span class="code-string">"did:indy:sovrin:XYZ123"</span>,
+      <span class="code-property">"publicKeyMultibase"</span>: <span class="code-string">"z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK"</span>
+    }
+  ],
+  <span class="code-property">"authentication"</span>: [
+    <span class="code-string">"did:indy:sovrin:XYZ123#key-1"</span>
+  ],
+  <span class="code-property">"assertionMethod"</span>: [
+    <span class="code-string">"did:indy:sovrin:XYZ123#key-1"</span>
+  ],
+  <span class="code-property">"service"</span>: [
+    {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:indy:sovrin:XYZ123#jobs"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"JobPostingService"</span>,
+      <span class="code-property">"serviceEndpoint"</span>: <span class="code-string">"https://example.com/employers/456/jobs"</span>
+    },
+    {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:indy:sovrin:XYZ123#aries"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"DIDCommMessaging"</span>,
+      <span class="code-property">"serviceEndpoint"</span>: <span class="code-string">"https://agent.example.com/didcomm"</span>
+    },
+    {
+      <span class="code-property">"id"</span>: <span class="code-string">"did:indy:sovrin:XYZ123#status"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"DIDStatus"</span>,
+      <span class="code-property">"serviceEndpoint"</span>: <span class="code-string">"https://example.com/did/status/indy/XYZ123"</span>
+    }
+  ]
+}</pre>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="font-bold text-neon-blue mb-4">Standard Example: AnonCreds Verifiable Credential</h4>
+                <div class="code-block">
+<pre><span class="code-comment">// AnonCreds Verifiable Credential (Hyperledger Aries format)</span>
+{
+  <span class="code-property">"schema_id"</span>: <span class="code-string">"did:indy:sovrin:123456789abcdefghi/anoncreds/v0/SCHEMA/TruaBackgroundCheck/1.0"</span>,
+  <span class="code-property">"cred_def_id"</span>: <span class="code-string">"did:indy:sovrin:XYZ123/anoncreds/v0/CLAIM_DEF/123456789abcdefghi/1.0"</span>,
+  <span class="code-property">"values"</span>: {
+    <span class="code-property">"truaScore"</span>: {
+      <span class="code-property">"raw"</span>: <span class="code-string">"320"</span>,
+      <span class="code-property">"encoded"</span>: <span class="code-string">"320"</span>
+    },
+    <span class="code-property">"employmentEligible"</span>: {
+      <span class="code-property">"raw"</span>: <span class="code-string">"true"</span>,
+      <span class="code-property">"encoded"</span>: <span class="code-string">"1"</span>
+    },
+    <span class="code-property">"verificationDate"</span>: {
+      <span class="code-property">"raw"</span>: <span class="code-string">"2025-06-30"</span>,
+      <span class="code-property">"encoded"</span>: <span class="code-string">"20250630"</span>
+    }
+  },
+  <span class="code-property">"signature"</span>: {
+    <span class="code-property">"p_credential"</span>: {
+      <span class="code-property">"m_2"</span>: <span class="code-string">"12345...truncated...67890"</span>,
+      <span class="code-property">"a"</span>: <span class="code-string">"54321...truncated...09876"</span>,
+      <span class="code-property">"e"</span>: <span class="code-string">"98765...truncated...43210"</span>,
+      <span class="code-property">"v"</span>: <span class="code-string">"13579...truncated...97531"</span>
+    },
+    <span class="code-property">"r_credential"</span>: null
+  },
+  <span class="code-property">"signature_correctness_proof"</span>: {
+    <span class="code-property">"se"</span>: <span class="code-string">"24680...truncated...08642"</span>,
+    <span class="code-property">"c"</span>: <span class="code-string">"86420...truncated...02468"</span>
+  },
+  <span class="code-property">"rev_reg_id"</span>: <span class="code-string">"did:indy:sovrin:XYZ123/anoncreds/v0/REV_REG/123456789abcdefghi/1.0"</span>,
+  <span class="code-property">"witness"</span>: {
+    <span class="code-property">"omega"</span>: <span class="code-string">"11111...truncated...22222"</span>
+  }
+}</pre>
+                </div>
+            </div>
+            
+            <div class="bg-blue-900/30 rounded-lg p-4">
+                <h4 class="font-bold text-white mb-2">Demo Scenario: Enterprise Trust Infrastructure</h4>
+                <p class="text-blue-200">
+                    In this step, the entire trust infrastructure is elevated to an enterprise-grade, blockchain-based system that supports all industry verticals from our roadmap:
+                </p>
+                <ol class="list-decimal list-inside text-blue-200 space-y-1 mt-2">
+                    <li>Employer registers and receives a blockchain-anchored DID on the Hyperledger Indy ledger</li>
+                    <li>Employer creates a job posting, which is signed using their Indy DID and stored with a reference on the ledger</li>
+                    <li>Applicant authorizes Trua to issue a Verifiable Credential using Hyperledger Aries protocols</li>
+                    <li>Trua issues an AnonCreds credential to the applicant's Aries-compatible wallet, with the credential definition stored on the Indy ledger</li>
+                    <li>Applicant applies for the job using a zero-knowledge proof generated from their AnonCreds credential</li>
+                    <li>Employer verifies the proof by checking against the credential definition on the ledger, without contacting Trua</li>
+                    <li>Employer verifies the credential hasn't been revoked by checking the revocation registry on the ledger</li>
+                </ol>
+                <p class="text-blue-200 mt-4">
+                    This scenario demonstrates the full power of combining ZKPs with blockchain-based SSI, providing privacy, security, and decentralized verification. The integration with Hyperledger creates a comprehensive trust infrastructure that supports all industry verticals in our roadmap:
+                </p>
+                <ul class="list-disc list-inside text-blue-200 space-y-1 mt-2">
+                    <li><span class="font-semibold">Employment & Background Verification:</span> Enhanced with blockchain-anchored credentials and revocation</li>
+                    <li><span class="font-semibold">Dating & Personal Safety:</span> Improved with Aries-based peer-to-peer verification</li>
+                    <li><span class="font-semibold">Healthcare & Medical Records:</span> Strengthened with Indy's privacy-preserving credential exchange</li>
+                    <li><span class="font-semibold">Financial Services & KYC:</span> Upgraded with Ursa's advanced cryptographic primitives</li>
+                    <li><span class="font-semibold">Education & Credential Verification:</span> Enhanced with tamper-proof credential schemas</li>
+                    <li><span class="font-semibold">Real Estate & Tenant Screening:</span> Improved with decentralized verification</li>
+                    <li><span class="font-semibold">Supply Chain & Product Provenance:</span> Supported with immutable credential chains</li>
+                </ul>
+                <p class="text-blue-200 mt-4">
+                    This implementation offers:
+                </p>
+                <ul class="list-disc list-inside text-blue-200 space-y-1 mt-2">
+                    <li><span class="font-semibold">Privacy by Design:</span> Zero-knowledge proofs ensure data minimization</li>
+                    <li><span class="font-semibold">Decentralized Trust:</span> Blockchain provides immutable anchoring</li>
+                    <li><span class="font-semibold">Interoperability:</span> Standards compliance enables ecosystem participation</li>
+                    <li><span class="font-semibold">Scalability:</span> Enterprise-grade infrastructure supports growth</li>
+                    <li><span class="font-semibold">Future-Proof:</span> Alignment with emerging standards and technologies</li>
+                </ul>
+            </div>
+        </div>
     </main>
 
     <footer class="py-8 text-center text-blue-400 text-sm">
@@ -682,12 +911,96 @@
             <a href="index.html" class="text-neon-blue hover:text-white transition-colors">Home</a>
             <a href="roadmap.html" class="text-neon-blue hover:text-white transition-colors">Verifiable Credentials Roadmap</a>
             <a href="did-progression.html" class="text-neon-blue hover:text-white transition-colors">DID Implementation Steps</a>
+            <a href="architecture.html" class="text-neon-blue hover:text-white transition-colors">System Architecture</a>
         </div>
         <p>© 2025 Trua Technologies | Privacy-Preserving Trust Infrastructure</p>
     </footer>
 
+    <!-- Include html2pdf.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Add any interactive functionality here
+            // PDF Download functionality
+            document.getElementById('downloadPdf').addEventListener('click', function() {
+                // Show loading state
+                const button = this;
+                const originalText = button.innerHTML;
+                button.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-dark-bg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generating PDF...';
+                button.disabled = true;
+                
+                // Get the main content element
+                const content = document.querySelector('main');
+                
+                // Create a clone of the content for PDF generation
+                const pdfContent = content.cloneNode(true);
+                
+                // Create print-friendly styles for PDF
+                const printStyles = document.createElement('style');
+                printStyles.textContent = `
+                    body, .glass-card, .step-card, .bg-white\\/5, .bg-blue-900\\/30 {
+                        background-color: white !important;
+                        box-shadow: none !important;
+                        backdrop-filter: none !important;
+                    }
+                    
+                    .text-blue-200, .text-blue-300, .text-blue-400, p, li, h4 {
+                        color: #333 !important;
+                    }
+                    
+                    h1, h2, h3, .text-white, .font-bold {
+                        color: #000 !important;
+                    }
+                    
+                    .text-neon-blue {
+                        color: #0066cc !important;
+                    }
+                    
+                    .neon-border {
+                        border: 1px solid #ccc !important;
+                    }
+                    
+                    .progress-bar {
+                        background: #0066cc !important;
+                    }
+                    
+                    .bg-neon-gradient {
+                        background: #0066cc !important;
+                        color: white !important;
+                    }
+                    
+                    .code-block {
+                        border: 1px solid #ccc !important;
+                        background-color: #f8f8f8 !important;
+                    }
+                    
+                    .code-comment {
+                        color: #666 !important;
+                    }
+                    
+                    .code-keyword, .code-string, .code-function, .code-property {
+                        color: #333 !important;
+                    }
+                `;
+                
+                // Apply print-friendly styles to the clone
+                pdfContent.appendChild(printStyles);
+                
+                // Configure PDF options
+                const options = {
+                    margin: [10, 10, 10, 10],
+                    filename: 'did-verifiable-credentials-implementation.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+                
+                // Generate PDF from the styled clone
+                html2pdf().from(pdfContent).set(options).save().then(function() {
+                    // Restore button state
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                });
+            });
         });
     </script>
