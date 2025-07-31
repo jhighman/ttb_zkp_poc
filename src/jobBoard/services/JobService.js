@@ -49,7 +49,7 @@ class JobService {
                 salaryMin: 120000,
                 salaryMax: 180000,
                 description: 'We are looking for an experienced blockchain developer to join our team. You will be responsible for designing and implementing smart contracts, developing decentralized applications, and contributing to our blockchain infrastructure.',
-                requiredCredentials: ['Computer Science Degree', 'Blockchain Certification', 'Smart Contract Experience']
+                requiredCredentials: ['Computer Science Degree', 'Blockchain Certification', 'Smart Contract Experience', 'No Felony', 'No Misdemeanor']
             },
             {
                 id: 'job2',
@@ -61,7 +61,7 @@ class JobService {
                 salaryMin: 110000,
                 salaryMax: 150000,
                 description: 'Join our team to build privacy-preserving systems using zero-knowledge proofs and other cryptographic techniques. You will work on implementing privacy features in our products and ensuring compliance with data protection regulations.',
-                requiredCredentials: ['Cryptography Experience', 'Privacy Certification', 'Software Engineering Degree']
+                requiredCredentials: ['Cryptography Experience', 'Privacy Certification', 'Software Engineering Degree', 'No DUI', 'Valid License']
             },
             {
                 id: 'job3',
@@ -73,7 +73,7 @@ class JobService {
                 salaryMin: 130000,
                 salaryMax: 190000,
                 description: 'We are seeking a researcher specializing in zero-knowledge proof protocols to join our R&D team. You will research, design, and implement novel ZKP systems for various applications in blockchain, privacy, and security.',
-                requiredCredentials: ['PhD in Cryptography', 'ZKP Research Experience', 'Academic Publications']
+                requiredCredentials: ['PhD in Cryptography', 'ZKP Research Experience', 'Academic Publications', 'No Warrants']
             },
             {
                 id: 'job4',
@@ -85,7 +85,7 @@ class JobService {
                 salaryMin: 100000,
                 salaryMax: 160000,
                 description: 'We are looking for a cryptography engineer to help design and implement secure cryptographic protocols for our blockchain platform. You will work on implementing zero-knowledge proofs, secure multi-party computation, and other advanced cryptographic techniques.',
-                requiredCredentials: ['Cryptography Certification', 'Mathematics Degree', 'Security Clearance']
+                requiredCredentials: ['Cryptography Certification', 'Mathematics Degree', 'Security Clearance', 'No Felony', 'No DUI']
             },
             {
                 id: 'job5',
@@ -97,7 +97,7 @@ class JobService {
                 salaryMin: 140000,
                 salaryMax: 200000,
                 description: 'As a Privacy Solutions Architect, you will design and implement privacy-preserving systems for our enterprise clients. You will work with cross-functional teams to integrate zero-knowledge proofs and other privacy technologies into existing systems.',
-                requiredCredentials: ['Enterprise Architecture Experience', 'Privacy Certification', 'Technical Leadership']
+                requiredCredentials: ['Enterprise Architecture Experience', 'Privacy Certification', 'Technical Leadership', 'No Felony', 'No Misdemeanor', 'No Warrants']
             }
         ];
     }

@@ -1,0 +1,30 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ],
+  "id": "did:web:trua.example.com",
+  "verificationMethod": [
+    {
+      "id": "did:web:trua.example.com#keys-1",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:web:trua.example.com",
+      "publicKeyMultibase": "z6MkrzXCdarP1kaZcJb3T53keDZvJEE1Z2k2hiJFwUmdhN8p"
+    }
+  ],
+  "authentication": [
+    "did:web:trua.example.com#keys-1"
+  ],
+  "assertionMethod": [
+    "did:web:trua.example.com#keys-1"
+  ],
+  "service": [
+    {
+      "id": "did:web:trua.example.com#job-verification",
+      "type": "JobVerificationService",
+      "serviceEndpoint": "https://trua.example.com/verify-job"
+    }
+  ],
+  "created": "2025-01-15T15:23:10Z",
+  "updated": "2025-07-01T12:45:22Z"
+}

@@ -1,0 +1,58 @@
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:example:felix-felton",
+  "controller": "did:example:felix-felton",
+  "name": "Felix Felton",
+  "displayName": "Felix Felton",
+  "email": "felix.felton@example.com",
+  "profileImage": "https://randomuser.me/api/portraits/men/3.jpg",
+  "verificationMethod": [
+    {
+      "id": "did:example:felix-felton#keys-1",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:example:felix-felton",
+      "publicKeyMultibase": "z6MkqNJSEiVgztAUgGZcGFp8z74FoEYYeYJPPQJnVVdUvmrt"
+    }
+  ],
+  "authentication": [
+    "did:example:felix-felton#keys-1"
+  ],
+  "assertionMethod": [
+    "did:example:felix-felton#keys-1"
+  ],
+  "service": [
+    {
+      "id": "did:example:felix-felton#credential-service",
+      "type": "CredentialService",
+      "serviceEndpoint": "https://credentials.example.com/verify"
+    }
+  ],
+  "credentials": {
+    "truaScore": 290,
+    "education": "Ph.D. in Computer Engineering",
+    "experience": "3+ years in blockchain development",
+    "skills": ["Solidity", "Ethereum", "Smart Contracts", "Web3.js", "Truffle"],
+    "certifications": ["Certified Blockchain Developer", "Ethereum Developer Certification"]
+  },
+  "profile": {
+    "truaScore": 290,
+    "disqualifiers": {
+      "felony": true,
+      "dui": false,
+      "suspendedLicense": false,
+      "misdemeanor": false,
+      "warrants": false
+    },
+    "description": "Good score but disqualified by felony conviction",
+    "details": [
+      "TruaScore: 290 (Good - Above 270 threshold)",
+      "Felony conviction within 5 years ❌",
+      "No DUI history",
+      "Valid driver's license",
+      "No misdemeanor convictions",
+      "No outstanding warrants"
+    ]
+  },
+  "created": "2025-02-10T09:15:00Z",
+  "updated": "2025-07-20T16:20:00Z"
+}

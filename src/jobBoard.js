@@ -113,7 +113,11 @@ class JobBoard {
         
         // Add each job using the JobCard component
         this.jobService.jobs.forEach(job => {
-            const jobCard = JobCard.create(job, (jobId) => this.handleApplyClick(jobId));
+            const jobCard = JobCard.create(
+                job,
+                (jobId) => this.handleApplyClick(jobId),
+                (jobId) => this.handleCheckEligibilityClick(jobId)
+            );
             jobListingsContainer.appendChild(jobCard);
         });
     }
@@ -130,6 +134,15 @@ class JobBoard {
         
         // Show application modal using the ApplicationModal component
         ApplicationModal.show(job, this.zkpVerifier, this.didService);
+    }
+    
+    // Handle check eligibility button click
+    async handleCheckEligibilityClick(jobId) {
+        const job = this.jobService.getJobById(jobId);
+        if (!job) return;
+        
+        // Show eligibility modal using the EligibilityModal component
+        EligibilityModal.show(job, this.zkpVerifier, this.didService);
     }
     
     // Handle create job button click

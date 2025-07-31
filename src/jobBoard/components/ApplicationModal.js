@@ -95,21 +95,38 @@ class ApplicationModal {
         applicationForm.id = 'application-form';
         applicationForm.className = 'space-y-6';
         
-        // DID input
+        // DID selection
         const didGroup = document.createElement('div');
         
         const didLabel = document.createElement('label');
         didLabel.className = 'block text-blue-300 mb-2';
         didLabel.htmlFor = 'applicant-did';
-        didLabel.textContent = 'Your Decentralized Identifier (DID)';
+        didLabel.textContent = 'Select Your Decentralized Identifier (DID)';
         didGroup.appendChild(didLabel);
         
-        const didInput = document.createElement('input');
-        didInput.type = 'text';
-        didInput.id = 'applicant-did';
-        didInput.className = 'w-full bg-dark-bg/50 border border-blue-500/30 rounded-lg p-3 text-blue-100 focus:outline-none focus:border-neon-blue';
-        didInput.placeholder = 'did:example:123456789abcdefghi';
-        didGroup.appendChild(didInput);
+        // Get available DIDs
+        const holderDids = didService.getHolderDids();
+        
+        // Create select dropdown
+        const didSelect = document.createElement('select');
+        didSelect.id = 'applicant-did';
+        didSelect.className = 'w-full bg-dark-bg/50 border border-blue-500/30 rounded-lg p-3 text-blue-100 focus:outline-none focus:border-neon-blue';
+        
+        // Add default option
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = '-- Select a DID --';
+        didSelect.appendChild(defaultOption);
+        
+        // Add options for each holder DID
+        holderDids.forEach(holder => {
+            const option = document.createElement('option');
+            option.value = holder.id;
+            option.textContent = `${holder.displayName} (${holder.id})`;
+            didSelect.appendChild(option);
+        });
+        
+        didGroup.appendChild(didSelect);
         
         const didHelp = document.createElement('div');
         didHelp.className = 'text-xs text-blue-400 mt-1';
@@ -125,7 +142,7 @@ class ApplicationModal {
         verifyDidButton.className = 'w-full bg-neon-gradient text-dark-bg py-3 rounded-lg font-bold hover:scale-105 transition-transform';
         verifyDidButton.textContent = 'Verify DID & Credentials';
         verifyDidButton.addEventListener('click', async () => {
-            const did = didInput.value.trim();
+            const did = didSelect.value.trim();
             if (!did) {
                 JobBoardNotifications.showError('Please enter your DID');
                 return;
@@ -357,9 +374,9 @@ class ApplicationModal {
         // Add to body
         document.body.appendChild(modalContainer);
         
-        // Focus on DID input
+        // Focus on DID select
         setTimeout(() => {
-            didInput.focus();
+            didSelect.focus();
         }, 100);
     }
 }

@@ -9,8 +9,14 @@ router.get('/', jobController.getAllJobs);
 // GET /api/jobs/search - Search jobs
 router.get('/search', jobController.searchJobs);
 
+// GET /api/jobs/verified - Get all jobs with verification status
+router.get('/verified', jobController.getJobsWithVerificationStatus);
+
 // GET /api/jobs/:id - Get a single job by ID
 router.get('/:id', jobController.getJobById);
+
+// GET /api/jobs/:id/verify - Verify a job signature
+router.get('/:id/verify', jobController.verifyJobSignature);
 
 // POST /api/jobs - Create a new job
 router.post('/', jobController.createJob);

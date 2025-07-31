@@ -5,7 +5,8 @@ A comprehensive zero-knowledge proof demonstration showcasing privacy-preserving
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (v16 or higher)
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 - Python 3.x
 - Git
 
@@ -18,17 +19,38 @@ A comprehensive zero-knowledge proof demonstration showcasing privacy-preserving
 
 2. Install dependencies:
    ```bash
+   # Install frontend dependencies
    npm install
+   
+   # Install backend dependencies
+   cd backend
+   npm install
+   cd ..
    ```
 
-3. Start the local server:
+3. Start the backend server:
    ```bash
-   python3 server.py
+   # Navigate to the backend directory
+   cd backend
+   
+   # Start the backend server
+   node src/server.js
+   # Or for development with auto-reload:
+   # npm run dev
    ```
+   The backend server will start on port 5050.
 
-4. Open your browser:
-   - **Investor Presentation**: http://localhost:8000/investor.html
-   - **Technical Demo**: http://localhost:8000/index.html
+4. In a new terminal window, start the frontend server:
+   ```bash
+   # Start the Python server to serve frontend files
+   python server.py
+   ```
+   The frontend server will start on port 8001.
+
+5. Open your browser:
+   - **Main Application**: http://localhost:8001/src/index.html
+   - **Investor Presentation**: http://localhost:8001/investor.html
+   - **Technical Demo**: http://localhost:8001/index.html
 
 ## 📋 Project Structure
 
@@ -44,12 +66,26 @@ zkp-job-demo/
 │   ├── investor.html               # Business presentation
 │   ├── index.html                  # Technical demo
 │   ├── app.js                      # Demo application logic
-│   └── tooltips.js                 # Educational content
+│   ├── tooltips.js                 # Educational content
+│   ├── zkpVerifier.js              # ZKP verification logic
+│   └── jobBoard/                   # Job board components
+│       ├── components/             # UI components
+│       ├── services/               # API services
+│       └── utils/                  # Utility functions
+├── backend/
+│   ├── package.json                # Backend dependencies
+│   └── src/
+│       ├── server.js               # Express server
+│       ├── inMemoryDb.js           # In-memory database
+│       ├── controllers/            # API controllers
+│       ├── models/                 # Data models
+│       └── routes/                 # API routes
 ├── docs/
 │   ├── README.md                   # Technical documentation
 │   └── INVESTOR_OVERVIEW.md        # Business overview
-├── package.json                    # Node.js dependencies
-├── server.py                       # Local HTTP server
+├── package.json                    # Frontend dependencies
+├── server.py                       # Frontend HTTP server
+├── startup-instructions.md         # Startup guide
 └── .gitignore                      # Git ignore rules
 ```
 
@@ -88,12 +124,51 @@ This demo implements a complete ZKP system using:
 - Educational tooltips explaining ZKP concepts
 - Real-time cryptographic proof creation
 
+### Job Board Application
+- Browse and search job listings
+- View job details and requirements
+- Create applicant profiles
+- Apply for jobs with ZKP verification
+- Employer job posting and management
+
 ### Applicant Profiles
 - **Applicant A**: Score=320, No disqualifiers ✅
 - **Applicant B**: Score=250, Has DUI ⚠️
 - **Applicant C**: Score=290, Has felony ❌
 - **Applicant D**: Score=340, Has old misdemeanor ✅
 - **Applicant E**: Score=180, Multiple issues 🚫
+
+## 🖥️ API Endpoints
+
+The backend server provides the following API endpoints:
+
+### Jobs
+- GET /api/jobs - Get all jobs
+- GET /api/jobs/:id - Get a specific job
+- POST /api/jobs - Create a new job
+- PUT /api/jobs/:id - Update a job
+- DELETE /api/jobs/:id - Delete a job
+
+### Applicants
+- GET /api/applicants - Get all applicants
+- GET /api/applicants/:id - Get a specific applicant
+- POST /api/applicants - Create a new applicant
+- PUT /api/applicants/:id - Update an applicant
+- DELETE /api/applicants/:id - Delete an applicant
+
+### Applications
+- GET /api/applications - Get all applications
+- GET /api/applications/:id - Get a specific application
+- POST /api/applications - Create a new application
+- PUT /api/applications/:id - Update an application
+- DELETE /api/applications/:id - Delete an application
+
+### Employers
+- GET /api/employers - Get all employers
+- GET /api/employers/:id - Get a specific employer
+- POST /api/employers - Create a new employer
+- PUT /api/employers/:id - Update an employer
+- DELETE /api/employers/:id - Delete an employer
 
 ## 🏗️ Technical Implementation
 
@@ -172,6 +247,17 @@ circom circuits/eligibility.circom --r1cs --wasm --sym
 snarkjs groth16 setup eligibility.r1cs powersOfTau28_hez_final_10.ptau eligibility_0000.zkey
 ```
 
+### In-Memory Database
+
+The application uses an in-memory database implementation that:
+
+- Preserves the MongoDB models and structure
+- Implements mock Mongoose methods (find, findById, save, etc.)
+- Initializes with sample data
+- Persists data for the duration of the server runtime
+
+This allows the application to run without requiring a MongoDB instance, making it easier to develop and test.
+
 ### Git Setup and Deployment
 
 The repository is already initialized and committed. To push to GitHub:
@@ -211,7 +297,8 @@ The repository is already initialized and committed. To push to GitHub:
 
 - **Technical Details**: See [`docs/README.md`](docs/README.md)
 - **Business Overview**: See [`docs/INVESTOR_OVERVIEW.md`](docs/INVESTOR_OVERVIEW.md)
-- **Live Demo**: Run locally and visit http://localhost:8000/
+- **Startup Instructions**: See [`startup-instructions.md`](startup-instructions.md)
+- **Live Demo**: Run locally and visit http://localhost:8001/src/index.html
 
 ## 🤝 Contributing
 

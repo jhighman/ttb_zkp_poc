@@ -1,0 +1,58 @@
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:example:misty-minor",
+  "controller": "did:example:misty-minor",
+  "name": "Misty Minor",
+  "displayName": "Misty Minor",
+  "email": "misty.minor@example.com",
+  "profileImage": "https://randomuser.me/api/portraits/women/2.jpg",
+  "verificationMethod": [
+    {
+      "id": "did:example:misty-minor#keys-1",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:example:misty-minor",
+      "publicKeyMultibase": "z6MkrW5VQYPIdUZjvEMZMfnHR6S5uSzm6cHxsHfCXHgG5hGn"
+    }
+  ],
+  "authentication": [
+    "did:example:misty-minor#keys-1"
+  ],
+  "assertionMethod": [
+    "did:example:misty-minor#keys-1"
+  ],
+  "service": [
+    {
+      "id": "did:example:misty-minor#credential-service",
+      "type": "CredentialService",
+      "serviceEndpoint": "https://credentials.example.com/verify"
+    }
+  ],
+  "credentials": {
+    "truaScore": 340,
+    "education": "Master's in Data Science",
+    "experience": "7+ years in data analytics",
+    "skills": ["Python", "R", "SQL", "Machine Learning", "Data Visualization"],
+    "certifications": ["Google Data Analytics Professional", "Microsoft Certified: Azure Data Scientist Associate"]
+  },
+  "profile": {
+    "truaScore": 340,
+    "disqualifiers": {
+      "felony": false,
+      "dui": false,
+      "suspendedLicense": false,
+      "misdemeanor": true,
+      "warrants": false
+    },
+    "description": "Excellent score with minor past issue",
+    "details": [
+      "TruaScore: 340 (Excellent - Well above 270 threshold)",
+      "No felony convictions",
+      "No DUI history",
+      "Valid driver's license",
+      "Misdemeanor conviction within 3 years ⚠️",
+      "No outstanding warrants"
+    ]
+  },
+  "created": "2024-11-20T14:30:00Z",
+  "updated": "2025-06-15T11:45:00Z"
+}

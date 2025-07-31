@@ -1,0 +1,58 @@
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:example:warren-outlaw",
+  "controller": "did:example:warren-outlaw",
+  "name": "Warren Outlaw",
+  "displayName": "Warren Outlaw",
+  "email": "warren.outlaw@example.com",
+  "profileImage": "https://randomuser.me/api/portraits/men/5.jpg",
+  "verificationMethod": [
+    {
+      "id": "did:example:warren-outlaw#keys-1",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:example:warren-outlaw",
+      "publicKeyMultibase": "z6MkpQzVJQzJEiJwXrMcjDnhFGmRzVJQzJEiJwXrMcjDnhFG"
+    }
+  ],
+  "authentication": [
+    "did:example:warren-outlaw#keys-1"
+  ],
+  "assertionMethod": [
+    "did:example:warren-outlaw#keys-1"
+  ],
+  "service": [
+    {
+      "id": "did:example:warren-outlaw#credential-service",
+      "type": "CredentialService",
+      "serviceEndpoint": "https://credentials.example.com/verify"
+    }
+  ],
+  "credentials": {
+    "truaScore": 280,
+    "education": "Associate's in Information Technology",
+    "experience": "4+ years in IT support",
+    "skills": ["Network Administration", "Hardware Troubleshooting", "Windows Server", "Linux"],
+    "certifications": ["CompTIA A+", "Microsoft Certified: Azure Administrator Associate"]
+  },
+  "profile": {
+    "truaScore": 280,
+    "disqualifiers": {
+      "felony": false,
+      "dui": false,
+      "suspendedLicense": false,
+      "misdemeanor": false,
+      "warrants": true
+    },
+    "description": "Acceptable score but disqualified by outstanding warrants",
+    "details": [
+      "TruaScore: 280 (Acceptable - Above 270 threshold)",
+      "No felony convictions",
+      "No DUI history",
+      "Valid driver's license",
+      "No misdemeanor convictions",
+      "Has outstanding warrants ❌"
+    ]
+  },
+  "created": "2025-01-30T16:20:00Z",
+  "updated": "2025-07-10T11:15:00Z"
+}

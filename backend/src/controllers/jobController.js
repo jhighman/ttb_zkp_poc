@@ -1,5 +1,76 @@
-const { Job } = require('../models');
+const { Job, Employer } = require('../models');
 const { stores } = require('../inMemoryDb');
+const crypto = require('crypto');
+
+// Helper function to sign a job posting with employer's private key
+// In a real implementation, this would use the employer's actual private key
+// For this demo, we'll simulate it with a mock key
+const signJobPosting = (jobData, employerDid) => {
+  // In a real implementation, we would:
+  // 1. Retrieve the employer's private key associated with their DID
+  // 2. Create a canonical representation of the job data
+  // 3. Sign it with the private key
+  
+  // For demo purposes, we'll create a mock signature
+  const mockPrivateKey = crypto.createHash('sha256').update(employerDid).digest('hex');
+  
+  // Create a canonical representation of the job data
+  const canonicalData = JSON.stringify({
+    title: jobData.title,
+    company: jobData.company,
+    description: jobData.description,
+    requirements: jobData.requirements,
+    employerDid: employerDid,
+    timestamp: new Date().toISOString()
+  });
+  
+  // Create a signature
+  const sign = crypto.createHmac('sha256', mockPrivateKey);
+  sign.update(canonicalData);
+  const signature = sign.digest('hex');
+  
+  return {
+    signature,
+    verificationMethod: `${employerDid}#keys-1`,
+    canonicalData
+  };
+};
+
+// Helper function to verify a job posting signature
+const verifyJobSignature = (job) => {
+  if (!job.signature || !job.verificationMethod || !job.employerDid) {
+    return false;
+  }
+  
+  try {
+    // In a real implementation, we would:
+    // 1. Resolve the DID to get the public key
+    // 2. Verify the signature using the public key
+    
+    // For demo purposes, we'll simulate verification
+    const mockPrivateKey = crypto.createHash('sha256').update(job.employerDid).digest('hex');
+    
+    // Recreate the canonical data
+    const canonicalData = JSON.stringify({
+      title: job.title,
+      company: job.company,
+      description: job.description,
+      requirements: job.requirements,
+      employerDid: job.employerDid,
+      timestamp: job.timestamp || new Date(job.postedDate).toISOString()
+    });
+    
+    // Verify the signature
+    const sign = crypto.createHmac('sha256', mockPrivateKey);
+    sign.update(canonicalData);
+    const expectedSignature = sign.digest('hex');
+    
+    return job.signature === expectedSignature;
+  } catch (error) {
+    console.error('Error verifying job signature:', error);
+    return false;
+  }
+};
 
 // Get all jobs
 exports.getAllJobs = async (req, res) => {
@@ -41,16 +112,60 @@ exports.getJobById = async (req, res) => {
 // Create a new job
 exports.createJob = async (req, res) => {
   try {
+    // For demo purposes, use a default employer if not provided
+    let employerId = req.body.employerId;
+    let employer;
+    
+    if (!employerId) {
+      // Check if we have any employers in the store
+      if (stores.employers && stores.employers.length > 0) {
+        employer = stores.employers[0];
+        employerId = employer._id;
+      } else {
+        // Create a default employer if none exists
+        employer = {
+          _id: '1',
+          name: 'Trua Technologies',
+          did: 'did:web:trua.example.com',
+          email: 'jobs@trua.example.com'
+        };
+        
+        // Add to the store if it doesn't exist
+        if (!stores.employers) {
+          stores.employers = [];
+        }
+        stores.employers.push(employer);
+      }
+    } else {
+      // Find the employer to get their DID
+      employer = stores.employers.find(emp => emp._id === employerId);
+      
+      if (!employer) {
+        return res.status(404).json({ message: 'Employer not found' });
+      }
+    }
+    
+    // Extract job data, removing employerId if present
+    const { employerId: _, ...jobData } = req.body;
+    
     // Create a new job with a unique ID
     const newJob = {
-      ...req.body,
+      ...jobData,
+      employer: employerId,
+      employerDid: employer.did,
       _id: String(stores.jobs.length + 1),
       postedDate: new Date().toISOString(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       applications: 0,
-      views: 0
+      views: 0,
+      timestamp: new Date().toISOString()
     };
+    
+    // Sign the job posting
+    const { signature, verificationMethod } = signJobPosting(newJob, employer.did);
+    newJob.signature = signature;
+    newJob.verificationMethod = verificationMethod;
     
     // Add to the in-memory store
     stores.jobs.push(newJob);
@@ -187,5 +302,55 @@ exports.searchJobs = async (req, res) => {
     res.status(200).json(jobs);
   } catch (error) {
     res.status(500).json({ message: 'Error searching jobs', error: error.message });
+  }
+};
+
+// Verify a job signature
+exports.verifyJobSignature = async (req, res) => {
+  try {
+    const job = stores.jobs.find(job => job._id === req.params.id);
+    
+    if (!job) {
+      return res.status(404).json({ message: 'Job not found' });
+    }
+    
+    const isVerified = verifyJobSignature(job);
+    
+    res.status(200).json({
+      jobId: job._id,
+      isVerified,
+      verificationMethod: job.verificationMethod || null,
+      employerDid: job.employerDid || null
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error verifying job signature', error: error.message });
+  }
+};
+
+// Get jobs with verification status
+exports.getJobsWithVerificationStatus = async (req, res) => {
+  try {
+    // Get jobs directly from the in-memory store
+    const jobs = stores.jobs.slice();
+    
+    // Add verification status to each job
+    const jobsWithVerification = jobs.map(job => {
+      const isVerified = verifyJobSignature(job);
+      return {
+        ...job,
+        isVerified
+      };
+    });
+    
+    // Sort by postedDate in descending order
+    jobsWithVerification.sort((a, b) => {
+      const dateA = new Date(a.postedDate || 0);
+      const dateB = new Date(b.postedDate || 0);
+      return dateB - dateA;
+    });
+    
+    res.status(200).json(jobsWithVerification);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching jobs with verification status', error: error.message });
   }
 };

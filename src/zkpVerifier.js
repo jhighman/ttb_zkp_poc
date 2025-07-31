@@ -166,6 +166,8 @@ class ZKPVerifier {
     // Simulate proof generation for demo purposes
     simulateProofGeneration(applicantData, jobRequirements) {
         console.log('Simulating proof generation...');
+        console.log('Applicant data:', JSON.stringify(applicantData, null, 2));
+        console.log('Job requirements:', JSON.stringify(jobRequirements, null, 2));
         
         // Check if the applicant meets the job requirements
         const isEligible = this.checkEligibility(applicantData, jobRequirements);
@@ -207,8 +209,16 @@ class ZKPVerifier {
     
     // Check if applicant meets job requirements (for simulation)
     checkEligibility(applicantData, jobRequirements) {
+        console.log('DETAILED ELIGIBILITY CHECK:');
+        console.log('Applicant:', applicantData.did);
+        console.log('Applicant TruaScore:', applicantData.profile.truaScore);
+        console.log('Required minimum TruaScore:', jobRequirements.minTruaScore);
+        console.log('Applicant disqualifiers:', JSON.stringify(applicantData.profile.disqualifiers));
+        console.log('Job disqualifiers:', JSON.stringify(jobRequirements.disqualifiers));
+        
         // Check TruaScore requirement
         if (applicantData.profile.truaScore < jobRequirements.minTruaScore) {
+            console.log('Failed TruaScore check');
             return false;
         }
         
@@ -223,13 +233,28 @@ class ZKPVerifier {
         
         for (const disqualifier of disqualifiers) {
             // If this disqualifier matters for the job and the applicant has it
-            if (jobRequirements.disqualifiers[disqualifier] && 
-                applicantData.profile.disqualifiers[disqualifier]) {
+            console.log(`Checking disqualifier: ${disqualifier}`);
+            console.log(`Job requires no ${disqualifier}:`, jobRequirements.disqualifiers[disqualifier]);
+            console.log(`Applicant has ${disqualifier}:`, applicantData.profile.disqualifiers[disqualifier]);
+            
+            // Special handling for different types of disqualifiers:
+            // 1. For most disqualifiers: job requires no disqualifier AND applicant has it
+            // 2. For warrants: applicant has warrants (automatic disqualifier regardless of job requirements)
+            // 3. For suspendedLicense: job requires valid license AND applicant has suspended license
+            
+            if (disqualifier === 'warrants' && applicantData.profile.disqualifiers[disqualifier]) {
+                // Warrants are an automatic disqualifier regardless of job requirements
+                console.log(`Failed ${disqualifier} check - warrants are an automatic disqualifier`);
+                return false;
+            } else if (jobRequirements.disqualifiers[disqualifier] && applicantData.profile.disqualifiers[disqualifier]) {
+                // For all other disqualifiers, check if job requires no disqualifier and applicant has it
+                console.log(`Failed ${disqualifier} check - job requires no ${disqualifier} but applicant has it`);
                 return false;
             }
         }
         
         // If all checks pass, the applicant is eligible
+        console.log('All checks passed, applicant is eligible');
         return true;
     }
     

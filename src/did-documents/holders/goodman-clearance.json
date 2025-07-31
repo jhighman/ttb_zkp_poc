@@ -1,0 +1,58 @@
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:example:goodman-clearance",
+  "controller": "did:example:goodman-clearance",
+  "name": "Goodman Clearance",
+  "displayName": "Goodman Clearance",
+  "email": "goodman.clearance@example.com",
+  "profileImage": "https://randomuser.me/api/portraits/men/1.jpg",
+  "verificationMethod": [
+    {
+      "id": "did:example:goodman-clearance#keys-1",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:example:goodman-clearance",
+      "publicKeyMultibase": "z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK"
+    }
+  ],
+  "authentication": [
+    "did:example:goodman-clearance#keys-1"
+  ],
+  "assertionMethod": [
+    "did:example:goodman-clearance#keys-1"
+  ],
+  "service": [
+    {
+      "id": "did:example:goodman-clearance#credential-service",
+      "type": "CredentialService",
+      "serviceEndpoint": "https://credentials.example.com/verify"
+    }
+  ],
+  "credentials": {
+    "truaScore": 320,
+    "education": "Bachelor's in Computer Science",
+    "experience": "5+ years in software development",
+    "skills": ["JavaScript", "Python", "React", "Node.js"],
+    "certifications": ["AWS Certified Developer", "Certified Scrum Master"]
+  },
+  "profile": {
+    "truaScore": 320,
+    "disqualifiers": {
+      "felony": false,
+      "dui": false,
+      "suspendedLicense": false,
+      "misdemeanor": false,
+      "warrants": false
+    },
+    "description": "High-performing candidate with clean background",
+    "details": [
+      "TruaScore: 320 (Excellent - Above 270 threshold)",
+      "No felony convictions",
+      "No DUI history",
+      "Valid driver's license",
+      "No misdemeanor convictions",
+      "No outstanding warrants"
+    ]
+  },
+  "created": "2025-01-15T12:00:00Z",
+  "updated": "2025-07-01T09:30:00Z"
+}

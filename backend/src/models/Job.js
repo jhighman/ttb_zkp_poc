@@ -12,6 +12,21 @@ const jobSchema = new mongoose.Schema({
     ref: 'Employer',
     required: true
   },
+  employerDid: {
+    type: String,
+    required: true,
+    trim: true,
+    // Format: did:method:specific-identifier
+    match: [/^did:[a-z0-9]+:[a-zA-Z0-9.%-]+$/, 'Please enter a valid DID']
+  },
+  signature: {
+    type: String,
+    required: false // Initially optional during transition
+  },
+  verificationMethod: {
+    type: String,
+    required: false // Initially optional during transition
+  },
   // Keep company name for backward compatibility and display purposes
   company: {
     type: String,

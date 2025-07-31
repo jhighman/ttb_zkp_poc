@@ -1,0 +1,58 @@
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:example:dewey-driver",
+  "controller": "did:example:dewey-driver",
+  "name": "Dewey Driver",
+  "displayName": "Dewey Driver",
+  "email": "dewey.driver@example.com",
+  "profileImage": "https://randomuser.me/api/portraits/men/4.jpg",
+  "verificationMethod": [
+    {
+      "id": "did:example:dewey-driver#keys-1",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:example:dewey-driver",
+      "publicKeyMultibase": "z6MkqRzVJQzJEiJwXrMcjDnhFGmRzVJQzJEiJwXrMcjDnhFG"
+    }
+  ],
+  "authentication": [
+    "did:example:dewey-driver#keys-1"
+  ],
+  "assertionMethod": [
+    "did:example:dewey-driver#keys-1"
+  ],
+  "service": [
+    {
+      "id": "did:example:dewey-driver#credential-service",
+      "type": "CredentialService",
+      "serviceEndpoint": "https://credentials.example.com/verify"
+    }
+  ],
+  "credentials": {
+    "truaScore": 310,
+    "education": "Bachelor's in Business Administration",
+    "experience": "8+ years in sales management",
+    "skills": ["Sales Strategy", "Team Leadership", "CRM Systems", "Client Relationship Management"],
+    "certifications": ["Certified Sales Professional", "Leadership Development Certificate"]
+  },
+  "profile": {
+    "truaScore": 310,
+    "disqualifiers": {
+      "felony": false,
+      "dui": true,
+      "suspendedLicense": true,
+      "misdemeanor": false,
+      "warrants": false
+    },
+    "description": "Good score but disqualified by DUI and suspended license",
+    "details": [
+      "TruaScore: 310 (Good - Above 270 threshold)",
+      "No felony convictions",
+      "DUI conviction within 5 years ❌",
+      "Suspended driver's license ❌",
+      "No misdemeanor convictions",
+      "No outstanding warrants"
+    ]
+  },
+  "created": "2024-12-05T10:45:00Z",
+  "updated": "2025-06-28T14:20:00Z"
+}

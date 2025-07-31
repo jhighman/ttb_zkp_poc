@@ -4,6 +4,52 @@
 class DidService {
     constructor() {
         this.didResolverEndpoint = '/api/did/resolve';
+        this.holderDids = [];
+        // Initialize with empty array, then load asynchronously
+        this.loadHolderDids().catch(err => console.error('Error loading holder DIDs:', err));
+    }
+    
+    /**
+     * Load DID documents from the holders folder
+     */
+    async loadHolderDids() {
+        try {
+            // In a real application, this would be an API call
+            // For this demo, we'll simulate loading the DIDs
+            
+            // Define the holder DIDs we've created
+            const holderFiles = [
+                'goodman-clearance.json',
+                'misty-minor.json',
+                'felix-felton.json',
+                'dewey-driver.json',
+                'warren-outlaw.json'
+            ];
+            
+            this.holderDids = holderFiles.map(file => {
+                const didId = file.replace('.json', '');
+                return {
+                    id: `did:example:${didId}`,
+                    displayName: didId.split('-').map(part =>
+                        part.charAt(0).toUpperCase() + part.slice(1)
+                    ).join(' '),
+                    file: file
+                };
+            });
+            
+            console.log('Loaded holder DIDs:', this.holderDids);
+        } catch (error) {
+            console.error('Error loading holder DIDs:', error);
+            this.holderDids = [];
+        }
+    }
+    
+    /**
+     * Get the list of available holder DIDs
+     * @returns {Array} - List of holder DIDs
+     */
+    getHolderDids() {
+        return this.holderDids;
     }
     
     /**
@@ -13,6 +59,21 @@ class DidService {
      */
     async fetchDidDocument(did) {
         try {
+            // Check if this is one of our holder DIDs
+            const holderDid = this.holderDids.find(holder => holder.id === did);
+            
+            if (holderDid) {
+                // Fetch the holder DID document from our local files
+                try {
+                    const response = await fetch(`/src/did-documents/holders/${holderDid.id.replace('did:example:', '')}.json`);
+                    if (response.ok) {
+                        return await response.json();
+                    }
+                } catch (localError) {
+                    console.warn('Error fetching local DID document:', localError);
+                }
+            }
+            
             // Try to fetch from API
             const response = await fetch(`${this.didResolverEndpoint}?did=${encodeURIComponent(did)}`);
             

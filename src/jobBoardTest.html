@@ -179,23 +179,86 @@
                 return true;
             }
             
-            async generateProof(did, requiredCredentials) {
-                console.log('Generating proof for DID:', did);
-                console.log('Required credentials:', requiredCredentials);
+            async generateProof(applicantData, jobRequirements) {
+                console.log('Generating proof for DID:', applicantData);
+                console.log('Required credentials:', jobRequirements);
+                
+                // Check eligibility
+                const isEligible = this.checkEligibility(applicantData, jobRequirements);
+                console.log('Eligibility result:', isEligible);
                 
                 // Simulate proof generation delay
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                // Return a mock proof
-                return {
-                    proof: {
-                        pi_a: ['12345', '67890', '13579'],
-                        pi_b: [['24680', '97531'], ['86420', '13579']],
-                        pi_c: ['11111', '22222']
-                    },
-                    publicInputs: ['1', '0', '1'],
-                    success: true
-                };
+                if (isEligible) {
+                    return {
+                        proof: {
+                            pi_a: ['12345', '67890', '13579'],
+                            pi_b: [['24680', '97531'], ['86420', '13579']],
+                            pi_c: ['11111', '22222']
+                        },
+                        publicInputs: ['1', '0', '1'],
+                        isEligible: true,
+                        success: true
+                    };
+                } else {
+                    return {
+                        proof: null,
+                        publicInputs: null,
+                        isEligible: false,
+                        error: 'Applicant does not meet job requirements'
+                    };
+                }
+            }
+            
+            // Check if applicant meets job requirements
+            checkEligibility(applicantData, jobRequirements) {
+                console.log('DETAILED ELIGIBILITY CHECK:');
+                console.log('Applicant:', applicantData.did);
+                console.log('Applicant TruaScore:', applicantData.profile.truaScore);
+                console.log('Required minimum TruaScore:', jobRequirements.minTruaScore);
+                console.log('Applicant disqualifiers:', JSON.stringify(applicantData.profile.disqualifiers));
+                console.log('Job disqualifiers:', JSON.stringify(jobRequirements.disqualifiers));
+                
+                // Check TruaScore requirement
+                if (applicantData.profile.truaScore < jobRequirements.minTruaScore) {
+                    console.log('Failed TruaScore check');
+                    return false;
+                }
+                
+                // Check disqualifiers
+                const disqualifiers = [
+                    'felony',
+                    'dui',
+                    'suspendedLicense',
+                    'misdemeanor',
+                    'warrants'
+                ];
+                
+                for (const disqualifier of disqualifiers) {
+                    // If this disqualifier matters for the job and the applicant has it
+                    console.log(`Checking disqualifier: ${disqualifier}`);
+                    console.log(`Job requires no ${disqualifier}:`, jobRequirements.disqualifiers[disqualifier]);
+                    console.log(`Applicant has ${disqualifier}:`, applicantData.profile.disqualifiers[disqualifier]);
+                    
+                    // Special handling for different types of disqualifiers:
+                    // 1. For most disqualifiers: job requires no disqualifier AND applicant has it
+                    // 2. For warrants: applicant has warrants (automatic disqualifier regardless of job requirements)
+                    
+                    if (disqualifier === 'warrants' && applicantData.profile.disqualifiers[disqualifier]) {
+                        // Warrants are an automatic disqualifier regardless of job requirements
+                        console.log(`Failed ${disqualifier} check - warrants are an automatic disqualifier`);
+                        return false;
+                    } else if (jobRequirements.disqualifiers[disqualifier] && applicantData.profile.disqualifiers[disqualifier]) {
+                        // For all other disqualifiers, check if job requires no disqualifier and applicant has it
+                        console.log(`Failed ${disqualifier} check - job requires no ${disqualifier} but applicant has it`);
+                        return false;
+                    }
+                }
+                
+                // If all checks pass, the applicant is eligible
+                console.log('All checks passed, applicant is eligible');
+                return true;
             }
         }
     </script>
@@ -206,6 +269,7 @@
     <script src="jobBoard/services/JobService.js"></script>
     <script src="jobBoard/components/JobCard.js"></script>
     <script src="jobBoard/components/ApplicationModal.js"></script>
+    <script src="jobBoard/components/EligibilityModal.js"></script>
     <script src="jobBoard/components/CreateJobModal.js"></script>
     <script src="jobBoard.js"></script>
     
